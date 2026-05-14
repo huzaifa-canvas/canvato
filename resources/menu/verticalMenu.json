@@ -1,0 +1,90 @@
+{
+  "menu": [
+    {
+      "url": "/admin",
+      "name": "Dashboard",
+      "icon": "menu-icon icon-base ti tabler-dashboard",
+      "slug": "pages-home"
+    },
+    {
+      "name": "Users",
+      "icon": "menu-icon icon-base ti tabler-users",
+      "slug": "app-user",
+      "url": "/admin/user/list"
+    },
+    {
+      "name": "Design Templates",
+      "icon": "menu-icon icon-base ti tabler-layout-grid",
+      "slug": ["templates", "categories"],
+      "submenu": [
+        {
+          "url": "/admin/templates",
+          "name": "All Templates",
+          "slug": "templates.index"
+        },
+        {
+          "url": "/admin/templates/printable-templates",
+          "name": "Printable Templates",
+          "slug": "templates.type.printable"
+        },
+        {
+          "url": "/admin/templates/product-mockups",
+          "name": "Product Mockups",
+          "slug": "templates.type.mockups"
+        },
+        {
+          "url": "/admin/templates/social-media",
+          "name": "Social Media",
+          "slug": "templates.type.social"
+        },
+        {
+          "url": "/admin/templates/websites",
+          "name": "Websites",
+          "slug": "templates.type.websites"
+        },
+        {
+          "url": "/admin/templates/ux-ui-toolkits",
+          "name": "UX/UI Toolkits",
+          "slug": "templates.type.ux"
+        },
+        {
+          "url": "/admin/templates/infographics",
+          "name": "Infographics",
+          "slug": "templates.type.infographics"
+        },
+        {
+          "url": "/admin/templates/logos",
+          "name": "Logos",
+          "slug": "templates.type.logos"
+        },
+        {
+          "url": "/admin/templates/scene-generators",
+          "name": "Scene Generators",
+          "slug": "templates.type.scene"
+        },
+        {
+          "url": "/admin/categories",
+          "name": "Categories Setup",
+          "slug": "categories.index"
+        }
+      ]
+    },
+    {
+      "name": "Roles & Permissions",
+      "icon": "menu-icon icon-base ti tabler-lock",
+      "slug": ["access-roles", "access-permission"],
+      "submenu": [
+        {
+          "url": "/admin/access-roles",
+          "name": "Roles",
+          "slug": "access-roles"
+        },
+        {
+          "url": "/admin/access-permission",
+          "name": "Permissions",
+          "slug": "access-permission"
+        }
+      ]
+    }
+  ]
+}

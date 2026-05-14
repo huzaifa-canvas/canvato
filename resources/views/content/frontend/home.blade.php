@@ -1,0 +1,983 @@
+﻿@extends('layouts.frontend')
+@section('title', 'Canvato - Digital Atelier')
+@section('content')
+@include('_partials.frontend.header')
+    <!-- 1. Hero Section Split Layout -->
+    <section class="hero-section-split" id="hero">
+        <div class="hero-left">
+            <div class="hero-slider-label">Series 01 / Design</div>
+            <h1 class="hero-slider-title">
+                Every<br>
+                <span class="text-stroke" id="typewriter-word">Asset</span><span class="typewriter-cursor"></span><br>
+                System
+            </h1>
+            <p class="hero-slider-subtitle">
+                Access our curated library of high-fidelity creative elements designed for modern interfaces and cinematic experiences.
+            </p>
+        </div>
+        
+        <div class="hero-right">
+            <div class="hero-marquee-grid">
+                <!-- Column 1: Scrolls Top to Bottom -->
+                <div class="marquee-column marquee-down">
+                    <div class="marquee-inner">
+                        <div class="hero-asset-card group">
+                            <div class="hero-asset-header">
+                                <h3 class="hero-asset-title">Icons</h3>
+                            </div>
+                            <div class="hero-asset-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=800&q=80" alt="Icons">
+                            </div>
+                        </div>
+                        <div class="hero-asset-card group">
+                            <div class="hero-asset-header">
+                                <h3 class="hero-asset-title">Illustrations</h3>
+                            </div>
+                            <div class="hero-asset-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80" alt="Illustrations">
+                            </div>
+                        </div>
+                        <div class="hero-asset-card group">
+                            <div class="hero-asset-header">
+                                <h3 class="hero-asset-title">3D Models</h3>
+                            </div>
+                            <div class="hero-asset-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=800&q=80" alt="3D Models">
+                            </div>
+                        </div>
+                        <div class="hero-asset-card group">
+                            <div class="hero-asset-header">
+                                <h3 class="hero-asset-title">Mockups</h3>
+                            </div>
+                            <div class="hero-asset-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1541462608143-67571c6738dd?auto=format&fit=crop&w=800&q=80" alt="Mockups">
+                            </div>
+                        </div>
+                        <!-- Duplicates for Loop -->
+                        <div class="hero-asset-card group">
+                            <div class="hero-asset-header">
+                                <h3 class="hero-asset-title">Icons</h3>
+                            </div>
+                            <div class="hero-asset-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=800&q=80" alt="Icons">
+                            </div>
+                        </div>
+                        <div class="hero-asset-card group">
+                            <div class="hero-asset-header">
+                                <h3 class="hero-asset-title">Illustrations</h3>
+                            </div>
+                            <div class="hero-asset-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80" alt="Illustrations">
+                            </div>
+                        </div>
+                        <div class="hero-asset-card group">
+                            <div class="hero-asset-header">
+                                <h3 class="hero-asset-title">3D Models</h3>
+                            </div>
+                            <div class="hero-asset-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=800&q=80" alt="3D Models">
+                            </div>
+                        </div>
+                        <div class="hero-asset-card group">
+                            <div class="hero-asset-header">
+                                <h3 class="hero-asset-title">Mockups</h3>
+                            </div>
+                            <div class="hero-asset-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1541462608143-67571c6738dd?auto=format&fit=crop&w=800&q=80" alt="Mockups">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Column 2: Scrolls Bottom to Top -->
+                <div class="marquee-column marquee-up">
+                    <div class="marquee-inner">
+                        <div class="hero-asset-card group">
+                            <div class="hero-asset-header">
+                                <h3 class="hero-asset-title">UI Kits</h3>
+                            </div>
+                            <div class="hero-asset-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=800&q=80" alt="UI Kits">
+                            </div>
+                        </div>
+                        <div class="hero-asset-card group">
+                            <div class="hero-asset-header">
+                                <h3 class="hero-asset-title">Textures</h3>
+                            </div>
+                            <div class="hero-asset-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1510936111840-65e151ad71bb?auto=format&fit=crop&w=800&q=80" alt="Textures">
+                            </div>
+                        </div>
+                        <div class="hero-asset-card group">
+                            <div class="hero-asset-header">
+                                <h3 class="hero-asset-title">Typefaces</h3>
+                            </div>
+                            <div class="hero-asset-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1563206767-5b18f218e8de?auto=format&fit=crop&w=800&q=80" alt="Typefaces">
+                            </div>
+                        </div>
+                        <div class="hero-asset-card group">
+                            <div class="hero-asset-header">
+                                <h3 class="hero-asset-title">Presentations</h3>
+                            </div>
+                            <div class="hero-asset-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80" alt="Presentations">
+                            </div>
+                        </div>
+                        <!-- Duplicates for Loop -->
+                        <div class="hero-asset-card group">
+                            <div class="hero-asset-header">
+                                <h3 class="hero-asset-title">UI Kits</h3>
+                            </div>
+                            <div class="hero-asset-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=800&q=80" alt="UI Kits">
+                            </div>
+                        </div>
+                        <div class="hero-asset-card group">
+                            <div class="hero-asset-header">
+                                <h3 class="hero-asset-title">Textures</h3>
+                            </div>
+                            <div class="hero-asset-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1510936111840-65e151ad71bb?auto=format&fit=crop&w=800&q=80" alt="Textures">
+                            </div>
+                        </div>
+                        <div class="hero-asset-card group">
+                            <div class="hero-asset-header">
+                                <h3 class="hero-asset-title">Typefaces</h3>
+                            </div>
+                            <div class="hero-asset-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1563206767-5b18f218e8de?auto=format&fit=crop&w=800&q=80" alt="Typefaces">
+                            </div>
+                        </div>
+                        <div class="hero-asset-card group">
+                            <div class="hero-asset-header">
+                                <h3 class="hero-asset-title">Presentations</h3>
+                            </div>
+                            <div class="hero-asset-img-wrap">
+                                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80" alt="Presentations">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-init-box">
+                <div class="hero-init-text">
+                    Ready to initialize the next generation of digital interface?
+                </div>
+                <div class="hero-init-btn">â†’</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. Asset Grid Section (Staggered, Full Width) -->
+    <section class="asset-section section-padding border-t border-b border-light" id="premium-assets">
+        <div class="container-fluid">
+            <div class="text-center mb-12">
+                <div class="micro-label mb-4 text-accent">Browse Categories</div>
+                <h2 class="section-heading text-center" style="margin-bottom: 24px;">THE COLLECTION</h2>
+                <div class="accent-divider mx-auto"></div>
+            </div>
+            
+            <div class="asset-grid">
+                <!-- Card 1 -->
+                <a href="#" class="asset-card">
+                    <div class="card-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=800&q=80" alt="Icons" class="card-image">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">ICONS</h3>
+                        <span class="micro-label">15,450+</span>
+                    </div>
+                </a>
+                <!-- Card 2 -->
+                <a href="#" class="asset-card">
+                    <div class="card-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80" alt="Illustrations" class="card-image">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">ILLUSTRATIONS</h3>
+                        <span class="micro-label">8,120+</span>
+                    </div>
+                </a>
+                <!-- Card 3 -->
+                <a href="#" class="asset-card">
+                    <div class="card-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=800&q=80" alt="3D Components" class="card-image">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">3D ASSETS</h3>
+                        <span class="micro-label">4,200+</span>
+                    </div>
+                </a>
+                <!-- Card 4 -->
+                <a href="#" class="asset-card">
+                    <div class="card-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=800&q=80" alt="UI Kits" class="card-image">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">UI KITS</h3>
+                        <span class="micro-label">1,850+</span>
+                    </div>
+                </a>
+                <!-- Card 5 -->
+                <a href="#" class="asset-card">
+                    <div class="card-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1541462608143-67571c6738dd?auto=format&fit=crop&w=800&q=80" alt="Mockups" class="card-image">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">MOCKUPS</h3>
+                        <span class="micro-label">5,600+</span>
+                    </div>
+                </a>
+                <!-- Card 6 -->
+                <a href="#" class="asset-card">
+                    <div class="card-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?auto=format&fit=crop&w=800&q=80" alt="Wireframes" class="card-image">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">WIREFRAMES</h3>
+                        <span class="micro-label">2,300+</span>
+                    </div>
+                </a>
+                <!-- Card 7 -->
+                <a href="#" class="asset-card">
+                    <div class="card-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1563206767-5b18f218e8de?auto=format&fit=crop&w=800&q=80" alt="Typography" class="card-image">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">TYPOGRAPHY</h3>
+                        <span class="micro-label">9,410+</span>
+                    </div>
+                </a>
+                <!-- Card 8 -->
+                <a href="#" class="asset-card">
+                    <div class="card-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80" alt="Presentations" class="card-image">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">PRESENTATIONS</h3>
+                        <span class="micro-label">3,120+</span>
+                    </div>
+                </a>
+                <!-- Card 9 -->
+                <a href="#" class="asset-card">
+                    <div class="card-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&w=800&q=80" alt="Animations" class="card-image">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">ANIMATIONS</h3>
+                        <span class="micro-label">1,500+</span>
+                    </div>
+                </a>
+                <!-- Card 10 -->
+                <a href="#" class="asset-card">
+                    <div class="card-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?auto=format&fit=crop&w=800&q=80" alt="Social Media" class="card-image">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">SOCIAL MEDIA</h3>
+                        <span class="micro-label">15,200+</span>
+                    </div>
+                </a>
+                <!-- Card 11 -->
+                <a href="#" class="asset-card">
+                    <div class="card-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1507238692062-7108992b15e2?auto=format&fit=crop&w=800&q=80" alt="Landing Pages" class="card-image">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">TEMPLATES</h3>
+                        <span class="micro-label">2,850+</span>
+                    </div>
+                </a>
+                <!-- Card 12 -->
+                <a href="#" class="asset-card">
+                    <div class="card-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1510936111840-65e151ad71bb?auto=format&fit=crop&w=800&q=80" alt="Textures" class="card-image">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">TEXTURES</h3>
+                        <span class="micro-label">6,400+</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Best Collections (Slider Section) -->
+    <section class="slider-section section-padding" id="curated-collections">
+        <div class="container text-center">
+            <div class="micro-label mb-2 text-accent">Curated Designer Packs</div>
+            <h2 class="section-heading text-center">BEST COLLECTIONS</h2>
+        </div>
+        <div class="marquee-wrapper">
+            <div class="marquee-track">
+                 <!-- Original Set -->
+                 <!-- Pack 1: Premium 3D Pack -->
+                 <div class="marquee-card">
+                    <div class="marquee-card-images">
+                        <div class="marquee-images-top">
+                            <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=800&q=80" alt="3D Main">
+                        </div>
+                        <div class="marquee-images-bottom">
+                            <div class="marquee-img-box"><img src="https://images.unsplash.com/photo-1634015916301-209214772658?auto=format&fit=crop&w=300&q=80" alt="3D Sub 1"></div>
+                            <div class="marquee-img-box"><img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&w=300&q=80" alt="3D Sub 2"></div>
+                            <div class="marquee-img-box"><img src="https://images.unsplash.com/photo-1614812548777-13589b036573?auto=format&fit=crop&w=300&q=80" alt="3D Sub 3"></div>
+                        </div>
+                    </div>
+                    <div class="marquee-card-footer">
+                        <h3 class="marquee-card-title">Premium 3D Sculptures</h3>
+                        <div class="marquee-card-meta">
+                            <div class="marquee-meta-icons">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                            </div>
+                            <span class="marquee-meta-label">420+ ASSETS</span>
+                        </div>
+                    </div>
+                 </div>
+
+                 <!-- Pack 2: Dashboard UI Kit -->
+                 <div class="marquee-card">
+                    <div class="marquee-card-images">
+                        <div class="marquee-images-top">
+                            <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=800&q=80" alt="UI Main">
+                        </div>
+                        <div class="marquee-images-bottom">
+                            <div class="marquee-img-box"><img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=300&q=80" alt="UI Sub 1"></div>
+                            <div class="marquee-img-box"><img src="https://images.unsplash.com/photo-1551288049-bbbda536639a?auto=format&fit=crop&w=300&q=80" alt="UI Sub 2"></div>
+                            <div class="marquee-img-box"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=300&q=80" alt="UI Sub 3"></div>
+                        </div>
+                    </div>
+                    <div class="marquee-card-footer">
+                        <h3 class="marquee-card-title">Styx Dashboard System</h3>
+                        <div class="marquee-card-meta">
+                            <div class="marquee-meta-icons">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.5 1.5"/><path d="M7 11l5-5"/></svg>
+                            </div>
+                            <span class="marquee-meta-label">120+ PAGES</span>
+                        </div>
+                    </div>
+                 </div>
+
+                 <!-- Pack 3: Mockup Master -->
+                 <div class="marquee-card">
+                    <div class="marquee-card-images">
+                        <div class="marquee-images-top">
+                            <img src="https://images.unsplash.com/photo-1541462608143-67571c6738dd?auto=format&fit=crop&w=800&q=80" alt="Mockup Main">
+                        </div>
+                        <div class="marquee-images-bottom">
+                            <div class="marquee-img-box"><img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=300&q=80" alt="Mockup Sub 1"></div>
+                            <div class="marquee-img-box"><img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=300&q=80" alt="Mockup Sub 2"></div>
+                            <div class="marquee-img-box"><img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=300&q=80" alt="Mockup Sub 3"></div>
+                        </div>
+                    </div>
+                    <div class="marquee-card-footer">
+                        <h3 class="marquee-card-title">Studio Mockup Bundle</h3>
+                        <div class="marquee-card-meta">
+                            <div class="marquee-meta-icons">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                            </div>
+                            <span class="marquee-meta-label">850+ ITEMS</span>
+                        </div>
+                    </div>
+                 </div>
+
+                 <!-- Pack 4: Social Essentials -->
+                 <div class="marquee-card">
+                    <div class="marquee-card-images">
+                        <div class="marquee-images-top">
+                            <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=800&q=80" alt="Social Main">
+                        </div>
+                        <div class="marquee-images-bottom">
+                            <div class="marquee-img-box"><img src="https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?auto=format&fit=crop&w=300&q=80" alt="Social Sub 1"></div>
+                            <div class="marquee-img-box"><img src="https://images.unsplash.com/photo-1611605698335-8b1569810432?auto=format&fit=crop&w=300&q=80" alt="Social Sub 2"></div>
+                            <div class="marquee-img-box"><img src="https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?auto=format&fit=crop&w=300&q=80" alt="Social Sub 3"></div>
+                        </div>
+                    </div>
+                    <div class="marquee-card-footer">
+                        <h3 class="marquee-card-title">Viral Branding Kit</h3>
+                        <div class="marquee-card-meta">
+                            <div class="marquee-meta-icons">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                            </div>
+                            <span class="marquee-meta-label">2.5K+ ASSETS</span>
+                        </div>
+                    </div>
+                 </div>
+
+                 <!-- Duplicates for Loop -->
+                 <!-- Pack 1 -->
+                 <div class="marquee-card">
+                    <div class="marquee-card-images">
+                        <div class="marquee-images-top">
+                            <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=800&q=80" alt="3D Main">
+                        </div>
+                        <div class="marquee-images-bottom">
+                            <div class="marquee-img-box"><img src="https://images.unsplash.com/photo-1634015916301-209214772658?auto=format&fit=crop&w=300&q=80" alt="3D Sub 1"></div>
+                            <div class="marquee-img-box"><img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&w=300&q=80" alt="3D Sub 2"></div>
+                            <div class="marquee-img-box"><img src="https://images.unsplash.com/photo-1614812548777-13589b036573?auto=format&fit=crop&w=300&q=80" alt="3D Sub 3"></div>
+                        </div>
+                    </div>
+                    <div class="marquee-card-footer">
+                        <h3 class="marquee-card-title">Premium 3D Sculptures</h3>
+                        <div class="marquee-card-meta">
+                            <div class="marquee-meta-icons">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                            </div>
+                            <span class="marquee-meta-label">420+ ASSETS</span>
+                        </div>
+                    </div>
+                 </div>
+
+                 <!-- Pack 2 -->
+                 <div class="marquee-card">
+                    <div class="marquee-card-images">
+                        <div class="marquee-images-top">
+                            <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=800&q=80" alt="UI Main">
+                        </div>
+                        <div class="marquee-images-bottom">
+                            <div class="marquee-img-box"><img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=300&q=80" alt="UI Sub 1"></div>
+                            <div class="marquee-img-box"><img src="https://images.unsplash.com/photo-1551288049-bbbda536639a?auto=format&fit=crop&w=300&q=80" alt="UI Sub 2"></div>
+                            <div class="marquee-img-box"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=300&q=80" alt="UI Sub 3"></div>
+                        </div>
+                    </div>
+                    <div class="marquee-card-footer">
+                        <h3 class="marquee-card-title">Styx Dashboard System</h3>
+                        <div class="marquee-card-meta">
+                            <div class="marquee-meta-icons">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.5 1.5"/><path d="M7 11l5-5"/></svg>
+                            </div>
+                            <span class="marquee-meta-label">120+ PAGES</span>
+                        </div>
+                    </div>
+                 </div>
+
+                 <!-- Pack 3 -->
+                 <div class="marquee-card">
+                    <div class="marquee-card-images">
+                        <div class="marquee-images-top">
+                            <img src="https://images.unsplash.com/photo-1541462608143-67571c6738dd?auto=format&fit=crop&w=800&q=80" alt="Mockup Main">
+                        </div>
+                        <div class="marquee-images-bottom">
+                            <div class="marquee-img-box"><img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=300&q=80" alt="Mockup Sub 1"></div>
+                            <div class="marquee-img-box"><img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=300&q=80" alt="Mockup Sub 2"></div>
+                            <div class="marquee-img-box"><img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=300&q=80" alt="Mockup Sub 3"></div>
+                        </div>
+                    </div>
+                    <div class="marquee-card-footer">
+                        <h3 class="marquee-card-title">Studio Mockup Bundle</h3>
+                        <div class="marquee-card-meta">
+                            <div class="marquee-meta-icons">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                            </div>
+                            <span class="marquee-meta-label">850+ ITEMS</span>
+                        </div>
+                    </div>
+                 </div>
+
+                 <!-- Pack 4 -->
+                 <div class="marquee-card">
+                    <div class="marquee-card-images">
+                        <div class="marquee-images-top">
+                            <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=800&q=80" alt="Social Main">
+                        </div>
+                        <div class="marquee-images-bottom">
+                            <div class="marquee-img-box"><img src="https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?auto=format&fit=crop&w=300&q=80" alt="Social Sub 1"></div>
+                            <div class="marquee-img-box"><img src="https://images.unsplash.com/photo-1611605698335-8b1569810432?auto=format&fit=crop&w=300&q=80" alt="Social Sub 2"></div>
+                            <div class="marquee-img-box"><img src="https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?auto=format&fit=crop&w=300&q=80" alt="Social Sub 3"></div>
+                        </div>
+                    </div>
+                    <div class="marquee-card-footer">
+                        <h3 class="marquee-card-title">Viral Branding Kit</h3>
+                        <div class="marquee-card-meta">
+                            <div class="marquee-meta-icons">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                            </div>
+                            <span class="marquee-meta-label">2.5K+ ASSETS</span>
+                        </div>
+                    </div>
+                 </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 4. Best Sellers Section â€” Bento Grid -->
+    <section class="best-sellers-section section-padding border-t border-light" id="best-sellers">
+        <div class="container-fluid text-center" style="margin-bottom: 48px;">
+            <div class="micro-label mb-2" style="color:#c22ef5;">Top Rated</div>
+            <h2 class="section-heading" style="color:#080808; margin-bottom:0;">BEST SELLERS</h2>
+        </div>
+
+        <div class="bento-grid">
+
+            <!-- Box 1 â€” TALL (spans rows 1 & 2) -->
+            <a href="#" class="bento-box bento-box--tall bento-box--dark-purple">
+                <div class="bento-box-image">
+                    <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&w=600&q=80" alt="Dashboard Kit">
+                </div>
+                <div>
+                    <div class="bento-box-label">UI Kit</div>
+                    <h3 class="bento-box-title">Dark Dashboard Kit</h3>
+                    <p class="bento-box-desc">Full-featured design system built for modern digital products and SaaS interfaces.</p>
+                    <span class="bento-box-price">$49.00</span>
+                </div>
+            </a>
+
+            <!-- Box 2 â€” WIDE (col 2-3, row 1) -->
+            <a href="#" class="bento-box bento-box--wide bento-box--light-lavender">
+                <div class="bento-box-image">
+                    <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=700&q=80" alt="3D Icons">
+                </div>
+                <div>
+                    <div class="bento-box-label">3D Assets</div>
+                    <h3 class="bento-box-title">3D Icon Sculptures</h3>
+                    <p class="bento-box-desc">High-fidelity sculptural icons ready for any digital product or presentation.</p>
+                    <span class="bento-box-price">$39.00</span>
+                </div>
+            </a>
+
+            <!-- Box 3 â€” Medium (col 2, row 2) -->
+            <a href="#" class="bento-box bento-box--dark-navy">
+                <div class="bento-box-image">
+                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=400&q=80" alt="Motion Pack">
+                </div>
+                <div>
+                    <div class="bento-box-label">Animation</div>
+                    <h3 class="bento-box-title">Motion Pack</h3>
+                    <p class="bento-box-desc">Lottie & AE animations for seamless digital experiences.</p>
+                    <span class="bento-box-price">$24.00</span>
+                </div>
+            </a>
+
+            <!-- Box 4 â€” Small (col 3, row 2) -->
+            <a href="#" class="bento-box bento-box--light-sage">
+                <div class="bento-box-image">
+                    <img src="https://images.unsplash.com/photo-1563206767-5b18f218e8de?auto=format&fit=crop&w=400&q=80" alt="Font Library">
+                </div>
+                <div>
+                    <div class="bento-box-label">Typography</div>
+                    <h3 class="bento-box-title">Font Library</h3>
+                    <p class="bento-box-desc">Premium editorial typefaces for every brand voice.</p>
+                    <span class="bento-box-price">$19.00</span>
+                </div>
+            </a>
+
+            <!-- Box 5 â€” WIDE (col 1-2, row 3) -->
+            <a href="#" class="bento-box bento-box--wide bento-box--near-black">
+                <div class="bento-box-image">
+                    <img src="https://images.unsplash.com/photo-1541462608143-67571c6738dd?auto=format&fit=crop&w=700&q=80" alt="Mockup Studio">
+                </div>
+                <div>
+                    <div class="bento-box-label">Mockups</div>
+                    <h3 class="bento-box-title">Studio Mockup Bundle</h3>
+                    <p class="bento-box-desc">850+ device & print mockups for showcasing your work at a professional level.</p>
+                    <span class="bento-box-price">$59.00</span>
+                </div>
+            </a>
+
+            <!-- Box 6 â€” Medium (col 3, row 3) -->
+            <a href="#" class="bento-box bento-box--light-slate">
+                <div class="bento-box-image">
+                    <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=400&q=80" alt="Social Kit">
+                </div>
+                <div>
+                    <div class="bento-box-label">Social Media</div>
+                    <h3 class="bento-box-title">Social Media Kit</h3>
+                    <p class="bento-box-desc">Instagram, TikTok & YouTube templates for viral-ready content.</p>
+                    <span class="bento-box-price">$29.00</span>
+                </div>
+            </a>
+
+        </div>
+    </section>
+
+
+    <!-- 5. Features Section (Modern Reference Style) -->
+    <section class="features-section" id="features">
+        <div class="container">
+            <div class="features-container">
+                <div class="features-content">
+                    <span class="features-micro-label reveal-stagger">Meaning</span>
+                    <h2 class="features-heading reveal-stagger">WHY PROFESSIONALS<br>STRENGTHEN CONNECTION</h2>
+                    <p class="features-desc reveal-stagger">
+                        Access our curated library of high-fidelity creative elements designed for modern interfaces and cinematic experiences. We empower creators with premium design assets that set new standards.
+                    </p>
+                    <div class="reveal-stagger">
+                        <a href="#" class="features-btn">Explore Features</a>
+                    </div>
+                </div>
+                <div class="features-visual">
+                    <img src="feature_visual_card_1776452714666.png" alt="Premium Design Asset" class="floating-asset">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5.5 AI Tools Suite -->
+    <section class="ai-tools-suite section-padding" id="ai-tools-suite">
+        <div class="container-fluid">
+            <div class="text-center mb-12">
+                <div class="micro-label mb-4 text-accent">Automation</div>
+                <h2 class="section-heading text-center">SUITE OF AI TOOLS</h2>
+                <div class="accent-divider mx-auto" style="background-color: #000;"></div>
+            </div>
+
+            <div class="ai-tools-grid">
+                <!-- Tool 1: ImageComp -->
+                <div class="ai-tool-box">
+                    <div class="tool-strip">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                        <span>ImageComp</span>
+                    </div>
+                    <div class="tool-box-content">
+                        <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=400&q=80" alt="AI Image Tool">
+                    </div>
+                </div>
+
+                <!-- Tool 2: NeuralViz -->
+                <div class="ai-tool-box">
+                    <div class="tool-strip">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                        <span>NeuralViz</span>
+                    </div>
+                    <div class="tool-box-content">
+                        <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&w=400&q=80" alt="Neural Visualization Tool">
+                    </div>
+                </div>
+
+                <!-- Tool 3: VectorGen -->
+                <div class="ai-tool-box">
+                    <div class="tool-strip">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/></svg>
+                        <span>VectorGen</span>
+                    </div>
+                    <div class="tool-box-content">
+                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=400&q=80" alt="AI Vector Tool">
+                    </div>
+                </div>
+
+                <!-- Tool 4: MotionSync -->
+                <div class="ai-tool-box">
+                    <div class="tool-strip">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                        <span>MotionSync</span>
+                    </div>
+                    <div class="tool-box-content">
+                        <img src="https://images.unsplash.com/photo-1541462608143-67571c6738dd?auto=format&fit=crop&w=400&q=80" alt="Motion Graphics AI">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Recently Added (Tabs + Grid) -->
+
+    <section class="recent-tabs-section section-padding border-t border-light" id="recent-assets">
+        <div class="container-fluid text-center">
+            <div class="micro-label mb-2 text-accent">Fresh Assets</div>
+            <h2 class="section-heading">RECENTLY ADDED</h2>
+            <div class="tabs-nav">
+                <button class="tab-btn active" data-tab="all">ALL</button>
+                <button class="tab-btn" data-tab="figma">FIGMA</button>
+                <button class="tab-btn" data-tab="3d">3D MODELS</button>
+                <button class="tab-btn" data-tab="psd">PSDS</button>
+            </div>
+        </div>
+        
+        <div class="tab-content active" id="tab-all">
+            <div class="four-col-grid">
+                    <a href="#" class="recent-card border-r border-light">
+                        <img src="https://images.unsplash.com/photo-1541462608143-67571c6738dd?auto=format&fit=crop&w=600&q=80" alt="Recent" class="img-top grayscale">
+                        <div class="recent-info">
+                            <h4>Modern SaaS Figma Kit</h4>
+                            <span class="micro-label">UI/UX</span>
+                        </div>
+                    </a>
+                    <a href="#" class="recent-card border-r border-light">
+                        <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=600&q=80" alt="Recent" class="img-top grayscale">
+                        <div class="recent-info">
+                            <h4>Abstract Spheres 3D</h4>
+                            <span class="micro-label">3D Assets</span>
+                        </div>
+                    </a>
+                    <a href="#" class="recent-card border-r border-light">
+                        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80" alt="Recent" class="img-top grayscale">
+                        <div class="recent-info">
+                            <h4>Pitch Deck Pro</h4>
+                            <span class="micro-label">Presentations</span>
+                        </div>
+                    </a>
+                    <a href="#" class="recent-card">
+                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=600&q=80" alt="Recent" class="img-top grayscale">
+                        <div class="recent-info">
+                            <h4>Fintech App Wireframes</h4>
+                            <span class="micro-label">Wireframes</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. Trusted by Top Brands -->
+    <section class="trusted-by-brands section-padding" id="trusted-by-brands">
+        <div class="container text-center">
+            <h2 class="section-heading">TRUSTED BY TOP BRANDS</h2>
+            <div class="brands-row">
+                <div class="brand-item">ADOBE</div>
+                <div class="brand-item">SLACK</div>
+                <div class="brand-item">SHOPIFY</div>
+                <div class="brand-item">SPOTIFY</div>
+                <div class="brand-item">TRELLO</div>
+                <div class="brand-item">FIGMA</div>
+            </div>
+        </div>
+    </section>
+
+@include('_partials.frontend.footer')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Subtler Brutalist Entrance
+        gsap.utils.toArray('.section-padding').forEach(section => {
+            if (section.id === 'premium-assets') return; // Handled separately
+            gsap.from(section, {
+                scrollTrigger: { trigger: section, start: "top 85%" },
+                y: 30, opacity: 0, duration: 0.8, ease: "power2.out"
+            });
+        });
+
+
+        // Hover animations (non-marquee cards)
+        const cards = document.querySelectorAll('.asset-card, .seller-card, .feature-card, .recent-card');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                const img = card.querySelector('img');
+                if(img) {
+                    gsap.to(img, { scale: 1.05, duration: 0.4, ease: "power2.out" });
+                }
+            });
+            card.addEventListener('mouseleave', () => {
+                const img = card.querySelector('img');
+                if(img) {
+                    gsap.to(img, { scale: 1, duration: 0.4, ease: "power2.out" });
+                }
+            });
+        });
+
+        // â”€â”€â”€ Marquee: JS Auto-Scroll + Mouse Drag â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        (function () {
+            const wrapper = document.querySelector('.marquee-wrapper');
+            const track   = document.querySelector('.marquee-track');
+            if (!wrapper || !track) return;
+
+            const AUTO_SPEED = 1.2;   // px per frame auto-scroll
+            const FRICTION   = 0.92;  // inertia friction after drag
+
+            let offset     = 0;       // current translateX (negative = scrolled left)
+            let isDragging = false;
+            let dragStartX = 0;
+            let dragLastX  = 0;
+            let velX       = 0;
+            let halfWidth  = 0;
+
+            // Compute half-width after layout so images have loaded
+            function getHalfWidth() {
+                return track.scrollWidth / 2;
+            }
+
+            function applyTransform() {
+                track.style.transform = `translateX(${offset}px)`;
+            }
+
+            // Infinite loop: when we've scrolled one full "set" back, reset silently
+            function wrapOffset() {
+                halfWidth = halfWidth || getHalfWidth();
+                if (offset <= -halfWidth) offset += halfWidth;
+                if (offset > 0)          offset -= halfWidth;
+            }
+
+            function tick() {
+                if (!isDragging) {
+                    // Auto-scroll leftward
+                    offset -= AUTO_SPEED;
+                    // Apply inertia decay after drag release
+                    if (Math.abs(velX) > 0.1) {
+                        offset  += velX;
+                        velX    *= FRICTION;
+                    }
+                }
+                wrapOffset();
+                applyTransform();
+                requestAnimationFrame(tick);
+            }
+
+            requestAnimationFrame(tick);
+
+            // â”€â”€ Drag handlers â”€â”€
+            wrapper.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                dragStartX = e.clientX;
+                dragLastX  = e.clientX;
+                velX       = 0;
+                wrapper.classList.add('is-dragging');
+                e.preventDefault();
+            });
+
+            window.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                const delta = e.clientX - dragLastX;
+                offset     += delta;
+                velX        = delta;
+                dragLastX   = e.clientX;
+            });
+
+            window.addEventListener('mouseup', () => {
+                if (!isDragging) return;
+                isDragging = false;
+                wrapper.classList.remove('is-dragging');
+                // velX carries the last movement into inertia inside tick()
+            });
+
+            wrapper.addEventListener('dragstart', (e) => e.preventDefault());
+        })();
+
+
+        // Tabs Logic
+        const tabs = document.querySelectorAll('.tab-btn');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+            });
+        });
+
+        // Typewriter Effect
+        const typeWords = ["Asset", "Theme", "Brand", "Pixel"];
+        let typeWordIndex = 0;
+        let typeCharIndex = 0;
+        let isDeletingWord = false;
+        const typeTarget = document.getElementById("typewriter-word");
+
+        function typeWriter() {
+            if (!typeTarget) return;
+            const currentWord = typeWords[typeWordIndex];
+            
+            if (isDeletingWord) {
+                typeTarget.textContent = currentWord.substring(0, typeCharIndex - 1);
+                typeCharIndex--;
+            } else {
+                typeTarget.textContent = currentWord.substring(0, typeCharIndex + 1);
+                typeCharIndex++;
+            }
+
+            let typeSpeed = isDeletingWord ? 50 : 100;
+
+            if (!isDeletingWord && typeCharIndex === currentWord.length) {
+                typeSpeed = 5000; // Pause for 5 seconds when word is fully typed
+                isDeletingWord = true;
+            } else if (isDeletingWord && typeCharIndex === 0) {
+                isDeletingWord = false;
+                typeWordIndex = (typeWordIndex + 1) % typeWords.length;
+                typeSpeed = 500; // Pause before typing next word
+            }
+
+            setTimeout(typeWriter, typeSpeed);
+        }
+
+        // Start typing effect
+        if(typeTarget) {
+            setTimeout(typeWriter, 1000);
+        }
+
+        // Modern Features Staggered Entrance
+        gsap.from(".features-container .reveal-stagger", {
+            scrollTrigger: {
+                trigger: ".features-container",
+                start: "top 80%",
+            },
+            y: 50,
+            opacity: 0,
+            duration: 1,
+            stagger: 0.15,
+            ease: "power4.out"
+        });
+
+        // Floating Animation for the visual asset
+        gsap.to(".floating-asset", {
+            y: -20,
+            duration: 3,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut"
+        });
+
+        // Custom Cursor Logic
+        const cursor = document.createElement('div');
+        cursor.className = 'custom-cursor';
+        cursor.innerHTML = '<div class="cursor-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>';
+        document.body.appendChild(cursor);
+
+        const cursorArrow = cursor.querySelector('.cursor-arrow');
+
+        window.addEventListener('mousemove', (e) => {
+            gsap.to(cursor, {
+                x: e.clientX,
+                y: e.clientY,
+                duration: 0.5,
+                ease: "power3.out"
+            });
+        });
+
+        const interactives = document.querySelectorAll('a, button, .tab-btn, .recent-card, .seller-card, .asset-card, .ai-tool-box');
+        
+        interactives.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                gsap.to(cursor, { width: 48, height: 48, duration: 0.4, ease: "power2.out" });
+                gsap.to(cursorArrow, { opacity: 1, scale: 1.5, duration: 0.4, ease: "power2.out" });
+            });
+            el.addEventListener('mouseleave', () => {
+                gsap.to(cursor, { width: 24, height: 24, duration: 0.4, ease: "power2.out" });
+                gsap.to(cursorArrow, { opacity: 0, scale: 0, duration: 0.4, ease: "power2.out" });
+            });
+        });
+
+        // Subtler Tilt on Hover
+        const featureCard = document.querySelector('.features-container');
+        if (featureCard) {
+            featureCard.addEventListener('mousemove', (e) => {
+                const { left, top, width, height } = featureCard.getBoundingClientRect();
+                const x = (e.clientX - left) / width - 0.5;
+                const y = (e.clientY - top) / height - 0.5;
+                
+                gsap.to(".floating-asset", {
+                    rotationY: x * 20,
+                    rotationX: -y * 20,
+                    duration: 0.5,
+                    ease: "power2.out"
+                });
+            });
+            
+            featureCard.addEventListener('mouseleave', () => {
+                gsap.to(".floating-asset", {
+                    rotationY: 0,
+                    rotationX: 0,
+                    duration: 0.8,
+                    ease: "power2.out"
+                });
+            });
+        }
+    </script>
+
+@endsection

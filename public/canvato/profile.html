@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - Canvato</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/dashboard.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --accent-color: #c22ef5;
+            --accent-hover: #b026e0;
+        }
+    </style>
+</head>
+<body class="dashboard-page">
+
+    <!-- Main Header -->
+    <header class="app-header">
+        <div class="header-container">
+            <div class="header-logo" onclick="window.location.href='index.html'">
+                CANVATO.
+            </div>
+            
+            <nav class="header-nav">
+                <a href="index.html">Home</a>
+                <a href="templates.html">All Templates</a>
+                <a href="#">Resources</a>
+                <a href="#">Community</a>
+                <a href="#">Pricing</a>
+            </nav>
+
+            <div class="header-actions">
+                <div class="search-bar">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="text" placeholder="Search assets...">
+                    <div class="search-shortcut">⌘K</div>
+                </div>
+                
+                <a href="profile.html" class="icon-btn" aria-label="Account">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard Sub-Menu (Horizontal) -->
+    <div class="dashboard-nav-container">
+        <div class="dashboard-nav-content">
+            <a href="profile.html" class="dash-nav-item active">Profile Settings</a>
+            <a href="orders.html" class="dash-nav-item">Order History</a>
+            <a href="checkout.html" class="dash-nav-item">Billing & Payment</a>
+            <a href="login.html" class="dash-nav-item" style="margin-left: auto; color: #ff3d00;">Logout</a>
+        </div>
+    </div>
+
+    <!-- Main Dashboard Content -->
+    <main class="container">
+        <div class="form-section">
+            <header style="margin-bottom: 64px;">
+                <h1 class="page-title">Personal Studio</h1>
+                <p class="page-subtitle">Refine your identity and studio preferences.</p>
+            </header>
+
+            <div class="premium-card">
+                <form onsubmit="event.preventDefault(); alert('Profile successfully updated.');">
+                    <div class="form-grid">
+                        <!-- Name -->
+                        <div class="premium-input-group">
+                            <label class="premium-label">Display Name</label>
+                            <input type="text" class="premium-input" value="Alex Rivers" placeholder="Full Name">
+                        </div>
+                        
+                        <!-- Email -->
+                        <div class="premium-input-group">
+                            <label class="premium-label">Email Address</label>
+                            <input type="email" class="premium-input" value="alex@example.com" placeholder="Email">
+                        </div>
+
+                        <!-- Username -->
+                        <div class="premium-input-group">
+                            <label class="premium-label">Studio Alias</label>
+                            <input type="text" class="premium-input" value="arivers_design" placeholder="@username">
+                        </div>
+
+                        <!-- Location -->
+                        <div class="premium-input-group">
+                            <label class="premium-label">Base Location</label>
+                            <input type="text" class="premium-input" value="New York, NY" placeholder="City, Country">
+                        </div>
+
+                        <!-- Bio -->
+                        <div class="premium-input-group form-full">
+                            <label class="premium-label">Studio Manifesto / Bio</label>
+                            <textarea class="premium-input" placeholder="Describe your creative vision..."></textarea>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 48px; display: flex; justify-content: flex-end;">
+                        <button type="submit" class="btn btn-primary" style="padding: 20px 48px;">Save Profile</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Main Footer -->
+    <footer class="footer border-t border-light" id="main-footer" style="margin-top: 120px;">
+        <div class="container footer-grid">
+            <div class="footer-col brand-col">
+                <h3 class="footer-brand font-display text-4xl">CANVATO.</h3>
+                <p class="text-muted mt-4 text-sm">Empowering creators with premium design assets.</p>
+            </div>
+            <div class="footer-col">
+                <h4 class="micro-label mb-6">MARKETPLACE</h4>
+                <a href="#">UI Kits</a>
+                <a href="#">3D Illustrations</a>
+                <a href="#">Wireframes</a>
+            </div>
+            <div class="footer-col">
+                <h4 class="micro-label mb-6">COMPANY</h4>
+                <a href="#">About</a>
+                <a href="#">Careers</a>
+                <a href="#">Contact</a>
+            </div>
+            <div class="footer-col">
+                <h4 class="micro-label mb-6">LEGAL</h4>
+                <a href="#">Terms</a>
+                <a href="#">Privacy</a>
+                <a href="#">License</a>
+            </div>
+        </div>
+        <div class="container footer-bottom mt-16 border-t border-light pt-8 flex justify-between micro-label text-muted">
+            <p>&copy; 2026 CANVATO / ATELIER</p>
+            <div class="flex gap-8">
+                <a href="#">TWITTER</a>
+                <a href="#">DRIBBBLE</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

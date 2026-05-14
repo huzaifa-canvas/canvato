@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A-Silesian's Memoir - Canvato</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        :root {
+            --accent-color: #c22ef5; /* Purple Theme */
+            --accent-hover: #b026e0;
+            --bg-darker: #0c0c0c;
+            --bg-dark: #141414;
+            --border-light: rgba(255,255,255,0.1);
+        }
+
+        body {
+            background-color: var(--bg-darker);
+            color: var(--text-primary);
+        }
+
+        /* Breadcrumb & Header Area */
+        .product-header-section {
+            padding: 140px 0 60px;
+            background: radial-gradient(circle at top left, #1a0033 0%, var(--bg-darker) 100%);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .breadcrumb {
+            display: flex;
+            gap: 10px;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            align-items: center;
+        }
+
+        .breadcrumb a {
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--accent-color);
+        }
+
+        .breadcrumb svg {
+            width: 10px;
+            opacity: 0.5;
+        }
+
+        .product-title {
+            font-size: clamp(36px, 5vw, 64px);
+            margin-bottom: 20px;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            font-weight: 800;
+            line-height: 1.1;
+        }
+
+        .product-subtitle {
+            max-width: 800px;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        /* Product Main Section */
+        .product-main {
+            padding: 80px 0;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 60px;
+        }
+
+        @media (max-width: 1024px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Gallery */
+        .product-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .main-image {
+            width: 100%;
+            height: 600px;
+            background: #000;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border-light);
+        }
+
+        .main-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .thumbnail-strip {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .thumbnail {
+            height: 120px;
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .thumbnail:hover, .thumbnail.active {
+            border-color: var(--accent-color);
+        }
+
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
+        }
+
+        .thumbnail:hover img, .thumbnail.active img {
+            opacity: 1;
+        }
+
+        /* Sidebar Details */
+        .product-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .pricing-box {
+            background: var(--bg-dark);
+            border: 1px solid var(--border-light);
+            border-radius: 16px;
+            padding: 30px;
+        }
+
+        .pricing-box h4 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* License Options */
+        .license-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .license-option:hover {
+            border-color: rgba(194, 46, 245, 0.5);
+            background: rgba(194, 46, 245, 0.05);
+        }
+
+        .license-option.selected {
+            border-color: var(--accent-color);
+            background: rgba(194, 46, 245, 0.1);
+        }
+
+        .license-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .radio-circle {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .license-option.selected .radio-circle {
+            border-color: var(--accent-color);
+        }
+
+        .license-option.selected .radio-circle::after {
+            content: '';
+            width: 10px;
+            height: 10px;
+            background: var(--accent-color);
+            border-radius: 50%;
+        }
+
+        .license-name {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .license-price {
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-right: 8px;
+        }
+
+        /* Services Options */
+        .service-option {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+
+        .service-option input[type="checkbox"] {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border-light);
+            border-radius: 4px;
+            background: transparent;
+            cursor: pointer;
+            position: relative;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .service-option input[type="checkbox"]:checked {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+
+        .service-option input[type="checkbox"]:checked::after {
+            content: '✓';
+            position: absolute;
+            color: white;
+            font-size: 14px;
+            top: -1px;
+            left: 3px;
+        }
+
+        .service-details {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .service-name {
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+
+        .service-price {
+            font-family: var(--font-mono);
+            color: var(--accent-color);
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .btn-cart, .btn-preview {
+            width: 100%;
+            height: 60px;
+            border-radius: 8px;
+            font-family: var(--font-display);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .btn-cart {
+            background: var(--accent-color);
+            color: #fff;
+            border: none;
+        }
+
+        .btn-cart:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(194, 46, 245, 0.3);
+        }
+
+        .btn-preview {
+            background: transparent;
+            color: #fff;
+            border: 1px solid var(--border-light);
+        }
+
+        .btn-preview:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        /* Accordion */
+        /* Custom Accordion for Smoothness */
+        .accordion-item {
+            border-top: 1px solid var(--border-light);
+            overflow: hidden;
+            background: transparent;
+        }
+
+        .accordion-item:last-child {
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .accordion-header {
+            padding: 22px 0;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            background: transparent !important;
+            border: none;
+            width: 100%;
+            color: var(--text-primary);
+            text-align: left;
+            transition: color 0.3s ease;
+            outline: none;
+        }
+
+        .accordion-header:hover {
+            color: var(--accent-color);
+        }
+
+        .accordion-header::after {
+            content: '+';
+            font-size: 18px;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+            font-family: var(--font-mono);
+        }
+
+        .accordion-item.active .accordion-header {
+            color: var(--accent-color);
+        }
+
+        .accordion-item.active .accordion-header::after {
+            content: '−'; /* Using a proper minus sign */
+            transform: rotate(180deg);
+            color: var(--accent-color);
+        }
+
+        .accordion-content {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .accordion-item.active .accordion-content {
+            grid-template-rows: 1fr;
+        }
+
+        .accordion-inner {
+            overflow: hidden;
+            padding-bottom: 25px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.7;
+            min-height: 0; /* Important for grid transition */
+        }
+
+        /* Creative Space: Quick Highlights */
+        .quick-highlights {
+            margin-top: 40px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .highlight-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .highlight-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top right, rgba(194, 46, 245, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .highlight-card:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: var(--accent-color);
+            transform: translateY(-8px);
+        }
+
+        .highlight-card:hover::before {
+            opacity: 1;
+        }
+
+        .highlight-icon {
+            color: var(--accent-color);
+            position: relative;
+            z-index: 1;
+        }
+
+        .highlight-card h5 {
+            font-size: 13px;
+            font-weight: 700;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-primary);
+            position: relative;
+            z-index: 1;
+        }
+
+        .highlight-card p {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin: 0;
+            line-height: 1.5;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Tabs Section Fixes */
+        .tabs-section {
+            padding: 80px 0 120px;
+            border-top: 1px solid var(--border-light);
+            background: linear-gradient(to bottom, rgba(12,12,12,0.5), transparent);
+        }
+
+        .tabs-nav {
+            display: flex;
+            gap: 40px;
+            border-bottom: 1px solid var(--border-light);
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .tab-btn {
+            background: transparent !important;
+            border: none;
+            color: var(--text-secondary);
+            font-family: var(--font-display);
+            font-size: 16px;
+            font-weight: 700;
+            padding: 0 0 25px 0;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            outline: none;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-primary);
+        }
+
+        .tab-btn.active {
+            color: var(--accent-color) !important;
+            background: transparent !important;
+        }
+
+        .tab-btn::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateX(-50%);
+        }
+
+        .tab-btn.active::after {
+            width: 100%;
+        }
+
+        .tab-pane {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .tab-pane.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Features & Tags List Styles */
+        .features-list, .tags-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .features-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .features-list li svg {
+            color: var(--accent-color);
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+
+        .tags-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tags-list li {
+            background: rgba(255,255,255,0.05);
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            border: 1px solid var(--border-light);
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Highlight Icon Constraint */
+        .highlight-icon svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .review-card {
+            background: var(--bg-dark);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .reviewer-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .reviewer-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: white;
+        }
+
+        .review-stars {
+            color: #ffcc00;
+            font-size: 12px;
+        }
+
+        .changelog-item {
+            margin-bottom: 30px;
+        }
+
+        .version-badge {
+            display: inline-block;
+            background: var(--accent-color);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .changelog-list {
+            list-style: none;
+            padding-left: 20px;
+        }
+
+        .changelog-list li {
+            position: relative;
+            margin-bottom: 10px;
+        }
+
+        .changelog-list li::before {
+            content: '•';
+            position: absolute;
+            left: -20px;
+            color: var(--accent-color);
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="app-header">
+        <div class="header-container">
+            <div class="header-logo" onclick="window.location.href='index.html'">
+                CANVATO.
+            </div>
+            
+            <nav class="header-nav">
+                <a href="index.html">Home</a>
+                <a href="templates.html">All Templates</a>
+                <a href="#">Resources</a>
+                <a href="#">Community</a>
+                <a href="#">Pricing</a>
+            </nav>
+
+            <div class="header-actions">
+                <div class="search-bar">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="text" placeholder="Search assets...">
+                    <div class="search-shortcut">⌘K</div>
+                </div>
+                
+                <a href="profile.html" class="icon-btn" aria-label="Account">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero / Breadcrumb Section -->
+        <section class="product-header-section">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="index.html">Home</a>
+                    <svg viewBox="0 0 320 512" fill="currentColor"><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg>
+                    <a href="templates.html">WordPress</a>
+                    <svg viewBox="0 0 320 512" fill="currentColor"><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg>
+                    <a href="#">Author</a>
+                    <svg viewBox="0 0 320 512" fill="currentColor"><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg>
+                    <span>A-Silesian's Memoir of Survival and Hope</span>
+                </div>
+                
+                <h1 class="product-title">A-Silesian's Memoir of Survival and Hope</h1>
+                <p class="product-subtitle">A powerful, brutalist-inspired WordPress theme designed for authors, storytellers, and creative writers seeking a bold, unforgettable digital presence.</p>
+            </div>
+        </section>
+
+        <!-- Product Main Section -->
+        <section class="product-main">
+            <div class="container">
+                <div class="product-grid">
+                    <!-- Left: Gallery -->
+                    <div class="product-gallery">
+                        <div class="main-image">
+                            <img src="https://images.unsplash.com/photo-1541462608143-67571c6738dd?auto=format&fit=crop&w=1200&h=800&q=80" alt="Main Product Preview">
+                        </div>
+                        <div class="thumbnail-strip">
+                            <div class="thumbnail active"><img src="https://images.unsplash.com/photo-1541462608143-67571c6738dd?auto=format&fit=crop&w=400&h=300&q=80" alt="Thumb 1"></div>
+                            <div class="thumbnail"><img src="https://images.unsplash.com/photo-1522542550221-31fd19575a2d?auto=format&fit=crop&w=400&h=300&q=80" alt="Thumb 2"></div>
+                            <div class="thumbnail"><img src="https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=400&h=300&q=80" alt="Thumb 3"></div>
+                            <div class="thumbnail"><img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=400&h=300&q=80" alt="Thumb 4"></div>
+                        </div>
+
+                        <!-- Creative Highlights Section -->
+                        <div class="quick-highlights">
+                            <div class="highlight-card">
+                                <div class="highlight-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                                </div>
+                                <h5>Modern Stack</h5>
+                                <p>Built with the latest creative technologies.</p>
+                            </div>
+                            <div class="highlight-card">
+                                <div class="highlight-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                                </div>
+                                <h5>Fast Setup</h5>
+                                <p>Go live in minutes with one-click import.</p>
+                            </div>
+                            <div class="highlight-card">
+                                <div class="highlight-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                                </div>
+                                <h5>Clean Code</h5>
+                                <p>Lightweight and optimized for performance.</p>
+                            </div>
+                            <div class="highlight-card">
+                                <div class="highlight-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                                </div>
+                                <h5>Expert Support</h5>
+                                <p>Dedicated assistance for all your needs.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Sidebar -->
+                    <div class="product-sidebar">
+                        
+                        <!-- License -->
+                        <div class="pricing-box">
+                            <h4>License Type:</h4>
+                            <div class="license-option selected" onclick="document.querySelectorAll('.license-option').forEach(el=>el.classList.remove('selected')); this.classList.add('selected');">
+                                <div class="license-info">
+                                    <div class="radio-circle"></div>
+                                    <span class="license-name">Personal License</span>
+                                </div>
+                                <div class="license-price">
+                                    <span class="old-price">$70.36</span>$60.35
+                                </div>
+                            </div>
+                            <div class="license-option" onclick="document.querySelectorAll('.license-option').forEach(el=>el.classList.remove('selected')); this.classList.add('selected');">
+                                <div class="license-info">
+                                    <div class="radio-circle"></div>
+                                    <span class="license-name">Commercial License</span>
+                                </div>
+                                <div class="license-price">
+                                    <span class="old-price">$90.36</span>$120.35
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Services -->
+                        <div class="pricing-box">
+                            <h4>Popular Services:</h4>
+                            
+                            <label class="service-option">
+                                <input type="checkbox">
+                                <div class="service-details">
+                                    <span class="service-name">Get 6 more months of support and save $19</span>
+                                    <span class="service-price">+$19.00</span>
+                                </div>
+                            </label>
+
+                            <label class="service-option">
+                                <input type="checkbox">
+                                <div class="service-details">
+                                    <span class="service-name">Installation & Customization Package</span>
+                                    <span class="service-price">+$49.00</span>
+                                </div>
+                            </label>
+
+                            <label class="service-option">
+                                <input type="checkbox">
+                                <div class="service-details">
+                                    <span class="service-name">Complete Website Setup</span>
+                                    <span class="service-price">+$199.00</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="pricing-box action-buttons">
+                            <button class="btn-cart" onclick="window.location.href='checkout.html'">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                                Buy Now
+                            </button>
+                        </div>
+
+                        <!-- Accordions -->
+                        <div class="accordion-container">
+                            <div class="accordion-item active">
+                                <button class="accordion-header">Template Details</button>
+                                <div class="accordion-content">
+                                    <div class="accordion-inner">
+                                        <p><strong>Author:</strong> CMS Template</p>
+                                        <p><strong>Released:</strong> December 2024</p>
+                                        <p><strong>License:</strong> CC BY 3.0</p>
+                                        <p><strong>Credits:</strong> Images from Unsplash</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <button class="accordion-header">Features</button>
+                                <div class="accordion-content">
+                                    <div class="accordion-inner">
+                                        <ul class="features-list">
+                                            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Premium Design</li>
+                                            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Fully Responsive</li>
+                                            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> SEO Optimized</li>
+                                            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Dark Mode Native</li>
+                                            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> GSAP Animations Included</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <button class="accordion-header">Tags</button>
+                                <div class="accordion-content">
+                                    <div class="accordion-inner">
+                                        <ul class="tags-list">
+                                            <li>Portfolio</li>
+                                            <li>eCommerce</li>
+                                            <li>Agency</li>
+                                            <li>Personal</li>
+                                            <li>Brutalist</li>
+                                            <li>Dark Theme</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tabs Section -->
+        <section class="tabs-section">
+            <div class="container">
+                <div class="tabs-nav">
+                    <button class="tab-btn active" data-tab="description">Description</button>
+                    <button class="tab-btn" data-tab="reviews">Reviews (3)</button>
+                    <button class="tab-btn" data-tab="changelog">Change Log</button>
+                </div>
+                
+                <div id="description" class="tab-pane active">
+                    <div class="tab-content-area">
+                        <p>Designed for creators who demand a bold, unapologetic digital presence. A-Silesian's Memoir is a premium WordPress theme that leverages high-contrast brutalist aesthetics, fluid GSAP animations, and strict typography to deliver an unforgettable user experience.</p>
+                        <br>
+                        <p>Perfect for authors, photographers, design agencies, and independent artists. This template includes a robust set of pre-designed inner pages, a fully integrated blog engine, and seamless WooCommerce compatibility for selling digital or physical products.</p>
+                        <br>
+                        <p>Features an exclusive custom cursor system, advanced smooth scrolling, and dynamic loading states that elevate your content above standard web templates.</p>
+                    </div>
+                </div>
+
+                <div id="reviews" class="tab-pane">
+                    <div class="tab-content-area">
+                        <div class="review-card">
+                            <div class="review-header">
+                                <div class="reviewer-info">
+                                    <div class="reviewer-avatar">JD</div>
+                                    <div>
+                                        <div class="reviewer-name">John Doe</div>
+                                        <div class="review-date">2 days ago</div>
+                                    </div>
+                                </div>
+                                <div class="review-stars">★★★★★</div>
+                            </div>
+                            <p>Absolutely stunning theme! The animations are buttery smooth and the documentation was super easy to follow. Highly recommended for anyone looking for a unique look.</p>
+                        </div>
+
+                        <div class="review-card">
+                            <div class="review-header">
+                                <div class="reviewer-info">
+                                    <div class="reviewer-avatar">SA</div>
+                                    <div>
+                                        <div class="reviewer-name">Sarah Anderson</div>
+                                        <div class="review-date">1 week ago</div>
+                                    </div>
+                                </div>
+                                <div class="review-stars">★★★★★</div>
+                            </div>
+                            <p>Finally a theme that doesn't look like every other site out there. The brutalist style is executed perfectly here. Great support too!</p>
+                        </div>
+
+                        <div class="review-card">
+                            <div class="review-header">
+                                <div class="reviewer-info">
+                                    <div class="reviewer-avatar">MK</div>
+                                    <div>
+                                        <div class="reviewer-name">Mike K.</div>
+                                        <div class="review-date">2 weeks ago</div>
+                                    </div>
+                                </div>
+                                <div class="review-stars">★★★★☆</div>
+                            </div>
+                            <p>Great aesthetics. I had a small issue with the mobile menu but the team helped me fix it within hours. Top tier service.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="changelog" class="tab-pane">
+                    <div class="tab-content-area">
+                        <div class="changelog-item">
+                            <div class="version-badge">v1.2.0 - April 2026</div>
+                            <ul class="changelog-list">
+                                <li>Added support for Elementor 3.20+</li>
+                                <li>New custom cursor expansion on interactive elements</li>
+                                <li>Optimized GSAP animation performance on mobile</li>
+                                <li>Fixed minor CSS issues in the footer section</li>
+                            </ul>
+                        </div>
+                        <div class="changelog-item">
+                            <div class="version-badge">v1.1.0 - Feb 2026</div>
+                            <ul class="changelog-list">
+                                <li>Improved WooCommerce checkout page layout</li>
+                                <li>Added 3 new homepage variants</li>
+                                <li>Updated font loading strategy for faster LCP</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer border-t border-light" id="main-footer">
+        <div class="container footer-grid">
+            <div class="footer-col brand-col">
+                <h3 class="footer-brand font-display text-4xl">CANVATO.</h3>
+                <p class="text-muted mt-4 text-sm">Empowering creators with premium design assets.</p>
+            </div>
+            <div class="footer-col">
+                <h4 class="micro-label mb-6">MARKETPLACE</h4>
+                <a href="#">UI Kits</a>
+                <a href="#">3D Illustrations</a>
+                <a href="#">Wireframes</a>
+            </div>
+            <div class="footer-col">
+                <h4 class="micro-label mb-6">COMPANY</h4>
+                <a href="#">About</a>
+                <a href="#">Careers</a>
+                <a href="#">Contact</a>
+            </div>
+            <div class="footer-col">
+                <h4 class="micro-label mb-6">LEGAL</h4>
+                <a href="#">License</a>
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <div class="footer-copy">© 2026 CANVATO. ALL RIGHTS RESERVED.</div>
+            <div class="footer-social">
+                <a href="#">TW</a>
+                <a href="#">IG</a>
+                <a href="#">DR</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script>
+        // Custom Cursor Logic
+        const cursor = document.createElement('div');
+        cursor.className = 'custom-cursor';
+        cursor.innerHTML = '<div class="cursor-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>';
+        document.body.appendChild(cursor);
+
+        const cursorArrow = cursor.querySelector('.cursor-arrow');
+
+        window.addEventListener('mousemove', (e) => {
+            gsap.to(cursor, {
+                x: e.clientX,
+                y: e.clientY,
+                duration: 0.5,
+                ease: "power3.out"
+            });
+        });
+
+        // Interactive Elements for Cursor
+        function updateInteractives() {
+            const interactives = document.querySelectorAll('a, button, input[type="checkbox"], .thumbnail, .accordion-header, .license-option, .tab-btn');
+            interactives.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    gsap.to(cursor, { width: 48, height: 48, duration: 0.4, ease: "power2.out" });
+                    gsap.to(cursorArrow, { opacity: 1, scale: 1.5, duration: 0.4, ease: "power2.out" });
+                });
+                el.addEventListener('mouseleave', () => {
+                    gsap.to(cursor, { width: 24, height: 24, duration: 0.4, ease: "power2.out" });
+                    gsap.to(cursorArrow, { opacity: 0, scale: 0, duration: 0.4, ease: "power2.out" });
+                });
+            });
+        }
+        updateInteractives();
+
+        // Accordion Logic
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', (e) => {
+                e.preventDefault();
+                const item = header.closest('.accordion-item');
+                const isActive = item.classList.contains('active');
+                
+                // Close all others
+                document.querySelectorAll('.accordion-item').forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+
+                // Toggle current
+                item.classList.toggle('active');
+            });
+        });
+
+        // Tab Switching Logic
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = btn.getAttribute('data-tab');
+                const targetPane = document.getElementById(targetId);
+                
+                if (!targetPane) return;
+
+                // Update buttons
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                // Update content with a small delay for animation sync if needed
+                document.querySelectorAll('.tab-pane').forEach(pane => {
+                    pane.classList.remove('active');
+                });
+                
+                targetPane.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
