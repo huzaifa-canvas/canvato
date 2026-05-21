@@ -17,9 +17,11 @@
 <div class="card">
   <div class="card-header d-flex justify-content-between align-items-center">
     <h5 class="mb-0">{{ $currentType ?? 'All Templates' }} <span class="badge bg-label-primary ms-2">{{ $templates->count() }}</span></h5>
+    @can('create products')
     <a href="{{ route('templates.create', $currentType ? ['type' => $currentType] : []) }}" class="btn btn-primary">
       <i class="icon-base ti tabler-plus me-1"></i> Add {{ $currentType ?? 'Template' }}
     </a>
+    @endcan
   </div>
   <div class="table-responsive text-nowrap">
     <table class="table">
@@ -84,9 +86,12 @@
           </td>
           <td>
             <div class="d-flex gap-1">
+              @can('edit products')
               <a href="{{ route('templates.edit', $template->id) }}" class="btn btn-icon btn-text-primary btn-sm" title="Edit">
                 <i class="icon-base ti tabler-edit icon-md"></i>
               </a>
+              @endcan
+              @can('delete products')
               <form action="{{ route('templates.destroy', $template->id) }}" method="POST" onsubmit="return confirm('Are you sure?');" class="d-inline">
                 @csrf
                 @method('DELETE')
@@ -94,6 +99,7 @@
                   <i class="icon-base ti tabler-trash icon-md"></i>
                 </button>
               </form>
+              @endcan
             </div>
           </td>
         </tr>

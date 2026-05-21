@@ -10,7 +10,9 @@
 <div class="card">
   <div class="card-header d-flex justify-content-between align-items-center">
     <h5 class="mb-0">All Categories</h5>
+    @can('create categories')
     <a href="{{ route('categories.create') }}" class="btn btn-primary">Add New Category</a>
+    @endcan
   </div>
   <div class="table-responsive text-nowrap">
     <table class="table">
@@ -36,9 +38,12 @@
           </td>
           <td>
             <div class="d-flex gap-1">
+              @can('edit categories')
               <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-icon btn-text-primary btn-sm">
                 <i class="icon-base ti tabler-edit icon-md"></i>
               </a>
+              @endcan
+              @can('delete categories')
               <form action="{{ route('categories.destroy', $category->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this category?');">
                 @csrf
                 @method('DELETE')
@@ -46,6 +51,7 @@
                   <i class="icon-base ti tabler-trash icon-md"></i>
                 </button>
               </form>
+              @endcan
             </div>
           </td>
         </tr>

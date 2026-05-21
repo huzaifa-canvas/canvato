@@ -77,6 +77,11 @@
           @endforeach
         </select>
       </form>
+      
+      {{-- Add User Button --}}
+      <a href="{{ route('app-user-create') }}" class="btn btn-primary">
+        <i class="icon-base ti tabler-plus me-2"></i> Add New User
+      </a>
     </div>
   </div>
   <div class="table-responsive">

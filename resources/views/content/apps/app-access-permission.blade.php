@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const id = this.dataset.id;
       const name = this.dataset.name;
       document.getElementById('editPermissionName').value = name;
-      document.getElementById('editPermissionForm').action = '/app/access-permission/' + id;
+      document.getElementById('editPermissionForm').action = '/admin/access-permission/' + id;
     });
   });
 });

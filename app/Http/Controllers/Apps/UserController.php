@@ -27,6 +27,32 @@ class UserController extends Controller
         return view('content.apps.app-user-list', compact('users', 'roles', 'selectedRole', 'totalUsers'));
     }
 
+    public function create()
+    {
+        $roles = Role::all();
+        return view('content.apps.app-user-create', compact('roles'));
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email',
+            'password' => 'required|string|min:8|confirmed',
+            'role' => 'required|string|exists:roles,name',
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+        $user->assignRole($request->role);
+
+        return redirect()->route('app-user-list')->with('success', 'User created successfully.');
+    }
+
     public function edit($id)
     {
         $user = User::with('roles')->findOrFail($id);

@@ -17,8 +17,8 @@ class DownloadController extends Controller
             return redirect()->route('login');
         }
 
-        // Check if user owns it
-        if (!Auth::user()->hasPurchased($template)) {
+        // Check if user owns it (skip for free templates)
+        if ($template->price > 0 && !Auth::user()->hasPurchased($template)) {
             abort(403, 'Unauthorized access. You have not purchased this template.');
         }
 

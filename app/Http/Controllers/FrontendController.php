@@ -20,7 +20,7 @@ class FrontendController extends Controller
     {
         $categories = \App\Models\Category::whereNull('parent_id')->with('children')->get();
         
-        $query = Template::with(['category', 'tags'])->where('is_active', true);
+        $query = Template::with(['category', 'categories', 'tags'])->where('is_active', true);
 
         // All available types and their slugs
         $availableTypes = [
@@ -42,7 +42,7 @@ class FrontendController extends Controller
             $activeTypeTitle = $exactType;
         }
 
-        // Category filter (Array support for checkboxes)
+        // Category filter (uses pivot table via belongsToMany)
         if ($request->filled('category')) {
             $categoriesInput = (array) $request->category;
             $dbCategories = \App\Models\Category::whereIn('slug', $categoriesInput)->with('children')->get();
@@ -55,7 +55,9 @@ class FrontendController extends Controller
                 }
             }
             if (count($categoryIds) > 0) {
-                $query->whereIn('category_id', $categoryIds);
+                $query->whereHas('categories', function($q) use ($categoryIds) {
+                    $q->whereIn('categories.id', $categoryIds);
+                });
             }
         }
 

@@ -435,6 +435,36 @@
             color: #fff;
         }
 
+        /* ── AJAX Loading Overlay ── */
+        .ajax-loading-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(10,10,10,0.75);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+        .ajax-loading-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        .ajax-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(255,255,255,0.1);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: ajaxSpin 0.7s linear infinite;
+        }
+        @keyframes ajaxSpin {
+            to { transform: rotate(360deg); }
+        }
+
         /* ── Responsive ── */
         @media (max-width: 992px) {
             .tpl-sidebar {
@@ -465,7 +495,11 @@
 @section('content')
 @include('_partials.frontend.header')
 <main>
-    <div id="ajax-catalog-container">
+    <div id="ajax-catalog-container" style="position:relative;">
+    {{-- Loading Overlay --}}
+    <div class="ajax-loading-overlay" id="ajaxLoadingOverlay">
+        <div class="ajax-spinner"></div>
+    </div>
     {{-- ── Hero ── --}}
     <section class="tpl-hero">
         <div class="container">
@@ -476,7 +510,8 @@
                     &rsaquo; <span>{{ $activeTypeTitle }}</span>
                 @endif
                 @if(request('category'))
-                    &rsaquo; <span>{{ ucfirst(str_replace('-', ' ', request('category'))) }}</span>
+                    @php $catNames = collect((array)request('category'))->map(fn($c) => ucfirst(str_replace('-', ' ', $c))); @endphp
+                    &rsaquo; <span>{{ $catNames->implode(', ') }}</span>
                 @endif
             </div>
             <h1>{{ isset($activeTypeTitle) && $activeTypeTitle ? $activeTypeTitle : 'Professional' }} <span>Templates</span></h1>
@@ -532,12 +567,19 @@
                     <input type="hidden" name="search" value="{{ request('search') }}">
                 @endif
 
+                {{-- Clear All Filters --}}
+                @if(request('category') || request('tool') || request('color_space') || request('orientation') || request('property') || request('search'))
+                <a href="{{ $currentRoute }}" class="filter-clear" style="display:block;text-align:center;padding:8px;margin-bottom:16px;border:1px solid var(--accent);border-radius:8px;font-size:12px;">
+                    ✕ Clear All Filters
+                </a>
+                @endif
+
                 {{-- Categories --}}
                 <div class="filter-section">
                     <div class="filter-title">
                         Categories
                         @if(request('category'))
-                            <a href="{{ $currentRoute . '?' . http_build_query(request()->except('category')) }}" class="filter-clear">&times; Clear</a>
+                            <a href="{{ $currentRoute . '?' . http_build_query(array_filter(request()->except('category', 'page'))) }}" class="filter-clear">&times; Clear</a>
                         @endif
                     </div>
                     @foreach($categories as $cat)
@@ -554,7 +596,12 @@
 
                 {{-- Compatible Tools --}}
                 <div class="filter-section">
-                    <div class="filter-title">Applications Supported</div>
+                    <div class="filter-title">
+                        Applications Supported
+                        @if(request('tool'))
+                            <a href="{{ $currentRoute . '?' . http_build_query(array_filter(request()->except('tool', 'page'))) }}" class="filter-clear">&times; Clear</a>
+                        @endif
+                    </div>
                     @foreach($compatibleTools as $tool)
                     <div class="filter-check">
                         <input type="checkbox" name="tool[]" value="{{ $tool }}"
@@ -569,7 +616,12 @@
 
                 {{-- Color Space --}}
                 <div class="filter-section">
-                    <div class="filter-title">Color Space</div>
+                    <div class="filter-title">
+                        Color Space
+                        @if(request('color_space'))
+                            <a href="{{ $currentRoute . '?' . http_build_query(array_filter(request()->except('color_space', 'page'))) }}" class="filter-clear">&times; Clear</a>
+                        @endif
+                    </div>
                     <div class="filter-check">
                         <input type="checkbox" id="cs_rgb" name="color_space[]" value="RGB" {{ in_array('RGB', (array)request('color_space')) ? 'checked' : '' }}>
                         <label for="cs_rgb">RGB</label>
@@ -584,7 +636,12 @@
 
                 {{-- Orientation --}}
                 <div class="filter-section">
-                    <div class="filter-title">Orientation</div>
+                    <div class="filter-title">
+                        Orientation
+                        @if(request('orientation'))
+                            <a href="{{ $currentRoute . '?' . http_build_query(array_filter(request()->except('orientation', 'page'))) }}" class="filter-clear">&times; Clear</a>
+                        @endif
+                    </div>
                     <div class="filter-check">
                         <input type="checkbox" id="ori_landscape" name="orientation[]" value="Landscape" {{ in_array('Landscape', (array)request('orientation')) ? 'checked' : '' }}>
                         <label for="ori_landscape">Landscape</label>
@@ -603,7 +660,12 @@
 
                 {{-- Properties --}}
                 <div class="filter-section">
-                    <div class="filter-title">Properties</div>
+                    <div class="filter-title">
+                        Properties
+                        @if(request('property'))
+                            <a href="{{ $currentRoute . '?' . http_build_query(array_filter(request()->except('property', 'page'))) }}" class="filter-clear">&times; Clear</a>
+                        @endif
+                    </div>
                     @php $propsList = ['Vector', 'Layered', 'Editable', 'Print Ready']; @endphp
                     @foreach($propsList as $prop)
                     <div class="filter-check">
@@ -634,7 +696,7 @@
                     Showing <strong>{{ $templates->count() }}</strong> of <strong>{{ $templates->total() }}</strong> templates
                 </span>
                 <div class="tpl-sort">
-                    <form method="GET" action="{{ route('frontend.templates') }}" id="sortForm">
+                    <form method="GET" action="{{ $currentRoute }}" id="sortForm">
                         @foreach(request()->except('sort', 'page') as $key => $val)
                             @if(is_array($val))
                                 @foreach($val as $v)
@@ -644,7 +706,7 @@
                                 <input type="hidden" name="{{ $key }}" value="{{ $val }}">
                             @endif
                         @endforeach
-                        <select name="sort" onchange="this.form.submit()">
+                        <select name="sort" id="sortSelect">
                             <option value="newest" {{ request('sort', 'newest') == 'newest' ? 'selected' : '' }}>Sort by: Newest</option>
                             <option value="popular" {{ request('sort') == 'popular' ? 'selected' : '' }}>Sort by: Popular</option>
                             <option value="price_low" {{ request('sort') == 'price_low' ? 'selected' : '' }}>Price: Low to High</option>
@@ -675,7 +737,9 @@
                                 @endphp
                                 <img src="{{ $placeholders[$template->id % count($placeholders)] }}" alt="{{ $template->title }}">
                             @endif
-                            @if($template->category)
+                            @if($template->categories->isNotEmpty())
+                                <span class="tpl-card-badge">{{ $template->categories->first()->name }}</span>
+                            @elseif($template->category)
                                 <span class="tpl-card-badge">{{ $template->category->name }}</span>
                             @endif
                         </div>
@@ -695,7 +759,13 @@
 
                         <div class="tpl-card-title">{{ $template->title }}</div>
                         <div class="tpl-card-footer">
-                            <span class="tpl-card-price">${{ number_format($template->price, 2) }}</span>
+                            <span class="tpl-card-price">
+                                @if($template->price > 0)
+                                    ${{ number_format($template->price, 2) }}
+                                @else
+                                    Free
+                                @endif
+                            </span>
                             <a href="{{ route('frontend.single-template', $template->slug) }}" class="tpl-card-preview">Preview</a>
                         </div>
                     </div>
@@ -722,97 +792,194 @@
 @include('_partials.frontend.footer')
 @endsection
 
-@section('page-script')
+@section('page-scripts')
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script>
-    // Card entrance animation
+$(function() {
+
+    // ── Initial Card Animation ──
+    gsap.set('.tpl-card', { opacity: 1, y: 0 });
     gsap.from('.tpl-card', {
-        y: 30, opacity: 0, duration: 0.5, stagger: 0.06, ease: 'power2.out', delay: 0.15
+        y: 30, opacity: 0, duration: 0.5, stagger: 0.06, ease: 'power2.out', delay: 0.15,
+        clearProps: 'all'
     });
 
-    // Close mobile sidebar on outside click
+    // ── Close mobile sidebar on outside click ──
     $(document).on('click', function(e) {
-        const $sidebar = $('#filterSidebar');
-        const $toggle = $('.sidebar-toggle-btn');
+        var $sidebar = $('#filterSidebar');
+        var $toggle  = $('.sidebar-toggle-btn');
         if ($sidebar.hasClass('show') && !$sidebar.is(e.target) && $sidebar.has(e.target).length === 0 && !$toggle.is(e.target) && $toggle.has(e.target).length === 0) {
             $sidebar.removeClass('show');
         }
     });
 
-    // ── AJAX Filtering (jQuery) ──
-    const loadContent = (url) => {
-        const $container = $('#ajax-catalog-container');
+    // ════════════════════════════════════════════════════
+    //  AJAX FILTERING ENGINE (jQuery)
+    // ════════════════════════════════════════════════════
+
+    var ajaxRequest = null; // track active request for aborting
+
+    function showLoader() {
+        $('#ajaxLoadingOverlay').addClass('active');
+    }
+    function hideLoader() {
+        $('#ajaxLoadingOverlay').removeClass('active');
+    }
+
+    /**
+     * Load content via AJAX and replace the container.
+     * @param {string} url - Full URL to fetch
+     * @param {boolean} pushState - Whether to push to browser history
+     */
+    function loadContent(url, pushState) {
+        if (typeof pushState === 'undefined') pushState = true;
+
+        var $container = $('#ajax-catalog-container');
         if (!$container.length) return;
 
+        // Abort any in-flight request
+        if (ajaxRequest && ajaxRequest.readyState !== 4) {
+            ajaxRequest.abort();
+        }
+
         // Update browser URL
-        window.history.pushState({}, '', url);
+        if (pushState) {
+            window.history.pushState({ ajaxUrl: url }, '', url);
+        }
 
-        // Add loading state
-        $container.css('opacity', '0.5');
+        // Show loading overlay
+        showLoader();
+        console.log('[Canvato Filter] Loading URL:', url);
 
-        $.ajax({
+        ajaxRequest = $.ajax({
             url: url,
             type: 'GET',
             headers: { 'X-Requested-With': 'XMLHttpRequest' },
             success: function(response) {
-                // Parse out the container from response
-                const newHtml = $(response).find('#ajax-catalog-container').html();
-                
-                if (newHtml) {
-                    $container.html(newHtml);
-                    
-                    // Re-trigger GSAP animations
+                // Use DOMParser for reliable full-page HTML parsing
+                var parser = new DOMParser();
+                var doc = parser.parseFromString(response, 'text/html');
+                var newContainer = doc.getElementById('ajax-catalog-container');
+
+                if (newContainer) {
+                    $container.html(newContainer.innerHTML);
+                    console.log('[Canvato Filter] Content replaced successfully');
+
+                    // Re-add loading overlay (it was inside container and got replaced)
+                    if (!$container.find('#ajaxLoadingOverlay').length) {
+                        $container.prepend('<div class="ajax-loading-overlay" id="ajaxLoadingOverlay"><div class="ajax-spinner"></div></div>');
+                    }
+
+                    // Re-trigger card entrance animation
+                    gsap.set('.tpl-card', { opacity: 1, y: 0 });
                     gsap.from('.tpl-card', {
-                        y: 30, opacity: 0, duration: 0.5, stagger: 0.06, ease: 'power2.out'
+                        y: 20, opacity: 0, duration: 0.4, stagger: 0.05, ease: 'power2.out',
+                        clearProps: 'all'
                     });
+                } else {
+                    console.error('[Canvato Filter] Container #ajax-catalog-container not found in response');
                 }
-                $container.css('opacity', '1');
+                hideLoader();
             },
-            error: function(xhr) {
-                console.error('AJAX Error:', xhr);
-                $container.css('opacity', '1');
+            error: function(xhr, status) {
+                if (status !== 'abort') {
+                    console.error('AJAX filter error:', xhr);
+                }
+                hideLoader();
             }
         });
-    };
+    }
 
-    // Handle Link Clicks (Pagination, Categories inside the container)
-    $(document).on('click', 'a', function(e) {
-        const $link = $(this);
-        if ($link.closest('#ajax-catalog-container').length && !$link.hasClass('tpl-card-preview') && !$link.hasClass('tpl-card-link')) {
-            const href = $link.attr('href');
-            if (href && href.includes('/design-templates')) {
-                e.preventDefault();
-                loadContent(href);
-            }
+    /**
+     * Build URL from a form's action + serialized data
+     */
+    function buildFormUrl($form) {
+        var actionUrl   = $form.attr('action') || window.location.pathname;
+        var queryString = $form.serialize();
+        if (!queryString) return actionUrl;
+        var separator   = actionUrl.indexOf('?') !== -1 ? '&' : '?';
+        return actionUrl + separator + queryString;
+    }
+
+    // ─── 1. TYPE PILLS (All Types, Printable Templates, etc.) ───
+    $(document).on('click', '.tpl-type-pill', function(e) {
+        e.preventDefault();
+        var href = $(this).attr('href');
+        if (href) {
+            loadContent(href);
         }
     });
 
-    // Handle Form Submissions (Search bar, etc.)
-    $(document).on('submit', '#filterForm, .tpl-search-inner', function(e) {
-        if ($(this).attr('method').toUpperCase() === 'GET') {
+    // ─── 2. SIDEBAR FILTER CHECKBOXES (instant on change) ───
+    $(document).on('change', '#filterForm input[type="checkbox"]', function() {
+        var $form = $('#filterForm');
+        loadContent(buildFormUrl($form));
+    });
+
+    // ─── 3. SORT DROPDOWN ───
+    $(document).on('change', '#sortSelect', function() {
+        var $form = $('#sortForm');
+        loadContent(buildFormUrl($form));
+    });
+
+    // ─── 4. SEARCH FORM ───
+    $(document).on('submit', '.tpl-search-inner', function(e) {
+        e.preventDefault();
+        loadContent(buildFormUrl($(this)));
+    });
+
+    // ─── 5. FILTER FORM SUBMIT (Apply button if any) ───
+    $(document).on('submit', '#filterForm', function(e) {
+        e.preventDefault();
+        loadContent(buildFormUrl($(this)));
+    });
+
+    // ─── 6. PAGINATION LINKS ───
+    $(document).on('click', '.tpl-pagination a', function(e) {
+        e.preventDefault();
+        var href = $(this).attr('href');
+        if (href) {
+            loadContent(href);
+        }
+    });
+
+    // ─── 7. FILTER CLEAR LINKS ───
+    $(document).on('click', '.filter-clear', function(e) {
+        e.preventDefault();
+        var href = $(this).attr('href');
+        if (href) {
+            loadContent(href);
+        }
+    });
+
+    // ─── 8. ANY OTHER LINK INSIDE CONTAINER (breadcrumbs, etc.) ───
+    $(document).on('click', '#ajax-catalog-container a', function(e) {
+        var $link = $(this);
+
+        // Skip links already handled above
+        if ($link.hasClass('tpl-type-pill') || $link.hasClass('tpl-card-preview') ||
+            $link.hasClass('filter-clear') || $link.closest('.tpl-pagination').length ||
+            $link.closest('.tpl-card-link').length || $link.hasClass('tpl-card-link')) {
+            return; // already handled or should navigate normally
+        }
+
+        var href = $link.attr('href');
+        if (href && href.indexOf('/design-template') !== -1 && href.indexOf('/design-template/') === -1) {
+            // It's a catalog link (not a single template link)
             e.preventDefault();
-            const actionUrl = $(this).attr('action') || window.location.pathname;
-            const queryString = $(this).serialize(); // Serialize is bulletproof for arrays
-            const separator = actionUrl.includes('?') ? '&' : '?';
-            loadContent(actionUrl + separator + queryString);
+            loadContent(href);
         }
     });
 
-    // Handle Checkbox/Select Changes (Auto-submit)
-    $(document).on('change', '#filterForm input, #filterForm select', function(e) {
-        const $form = $(this).closest('form');
-        if ($form.length) {
-            const actionUrl = $form.attr('action') || window.location.pathname;
-            const queryString = $form.serialize();
-            const separator = actionUrl.includes('?') ? '&' : '?';
-            loadContent(actionUrl + separator + queryString);
-        }
-    });
+    // ─── 9. TEMPLATE CARD LINKS (navigate normally to single page) ───
+    // .tpl-card-link and .tpl-card-preview navigate normally — no preventDefault
 
-    // Handle Browser Back/Forward
+    // ─── 10. BROWSER BACK/FORWARD ───
     $(window).on('popstate', function() {
-        loadContent(window.location.href);
+        loadContent(window.location.href, false);
     });
+
+});
 </script>
 @endsection

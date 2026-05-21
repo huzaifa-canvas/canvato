@@ -82,6 +82,11 @@ class TemplateController extends Controller
 
         $price = $request->price ?? 0;
 
+        $isActive = $request->has('is_active');
+        if ($isActive && !auth()->user()->can('publish products')) {
+            $isActive = false; // Default to inactive if they don't have permission to publish
+        }
+
         $template = Template::create([
             'title' => $request->title,
             'slug' => Str::slug($request->title) . '-' . uniqid(),
@@ -98,7 +103,7 @@ class TemplateController extends Controller
             'secure_file_path' => $secureFilePath,
             'preview_url' => $request->preview_url,
             'meta_data' => $metaData,
-            'is_active' => $request->has('is_active'),
+            'is_active' => $isActive,
             'author_id' => auth()->id() ?? 1,
         ]);
 
@@ -171,6 +176,19 @@ class TemplateController extends Controller
 
         $price = $request->price ?? 0;
 
+        $isActive = $template->is_active;
+        if ($request->has('is_active') && !$template->is_active) {
+            // Trying to publish
+            if (auth()->user()->can('publish products')) {
+                $isActive = true;
+            }
+        } elseif (!$request->has('is_active') && $template->is_active) {
+            // Trying to unpublish
+            if (auth()->user()->can('unpublish products')) {
+                $isActive = false;
+            }
+        }
+
         $template->update([
             'title' => $request->title,
             'category_id' => $request->category_id[0] ?? null,
@@ -185,7 +203,7 @@ class TemplateController extends Controller
             'thumbnail' => $existingThumbs,
             'preview_url' => $request->preview_url,
             'meta_data' => $metaData,
-            'is_active' => $request->has('is_active'),
+            'is_active' => $isActive,
         ]);
 
         // Sync categories

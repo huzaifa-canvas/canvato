@@ -4,85 +4,107 @@
       "url": "/admin",
       "name": "Dashboard",
       "icon": "menu-icon icon-base ti tabler-dashboard",
-      "slug": "pages-home"
+      "slug": "pages-home",
+      "permission": "view dashboard"
     },
     {
       "name": "Users",
       "icon": "menu-icon icon-base ti tabler-users",
       "slug": "app-user",
-      "url": "/admin/user/list"
+      "url": "/admin/user/list",
+      "permission": "view users"
     },
     {
       "name": "Design Templates",
       "icon": "menu-icon icon-base ti tabler-layout-grid",
-      "slug": ["templates", "categories"],
+      "slug": [
+        "templates",
+        "categories"
+      ],
+      "permission": "view products",
       "submenu": [
         {
           "url": "/admin/templates",
           "name": "All Templates",
-          "slug": "templates.index"
+          "slug": "templates.index",
+          "permission": "view products"
         },
         {
           "url": "/admin/templates/printable-templates",
           "name": "Printable Templates",
-          "slug": "templates.type.printable"
+          "slug": "templates.type.printable",
+          "permission": "view products"
         },
         {
           "url": "/admin/templates/product-mockups",
           "name": "Product Mockups",
-          "slug": "templates.type.mockups"
+          "slug": "templates.type.mockups",
+          "permission": "view products"
         },
         {
           "url": "/admin/templates/social-media",
           "name": "Social Media",
-          "slug": "templates.type.social"
+          "slug": "templates.type.social",
+          "permission": "view products"
         },
         {
           "url": "/admin/templates/websites",
           "name": "Websites",
-          "slug": "templates.type.websites"
+          "slug": "templates.type.websites",
+          "permission": "view products"
         },
         {
           "url": "/admin/templates/ux-ui-toolkits",
           "name": "UX/UI Toolkits",
-          "slug": "templates.type.ux"
+          "slug": "templates.type.ux",
+          "permission": "view products"
         },
         {
           "url": "/admin/templates/infographics",
           "name": "Infographics",
-          "slug": "templates.type.infographics"
+          "slug": "templates.type.infographics",
+          "permission": "view products"
         },
         {
           "url": "/admin/templates/logos",
           "name": "Logos",
-          "slug": "templates.type.logos"
+          "slug": "templates.type.logos",
+          "permission": "view products"
         },
         {
           "url": "/admin/templates/scene-generators",
           "name": "Scene Generators",
-          "slug": "templates.type.scene"
+          "slug": "templates.type.scene",
+          "permission": "view products"
         },
         {
           "url": "/admin/categories",
           "name": "Categories Setup",
-          "slug": "categories.index"
+          "slug": "categories.index",
+          "permission": "view categories"
         }
       ]
     },
     {
       "name": "Roles & Permissions",
       "icon": "menu-icon icon-base ti tabler-lock",
-      "slug": ["access-roles", "access-permission"],
+      "slug": [
+        "access-roles",
+        "access-permission"
+      ],
+      "permission": "view roles",
       "submenu": [
         {
           "url": "/admin/access-roles",
           "name": "Roles",
-          "slug": "access-roles"
+          "slug": "access-roles",
+          "permission": "view roles"
         },
         {
           "url": "/admin/access-permission",
           "name": "Permissions",
-          "slug": "access-permission"
+          "slug": "access-permission",
+          "permission": "view permissions"
         }
       ]
     }

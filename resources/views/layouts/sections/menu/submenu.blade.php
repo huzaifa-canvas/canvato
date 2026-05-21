@@ -5,6 +5,10 @@ use Illuminate\Support\Facades\Route;
 <ul class="menu-sub">
   @if (isset($menu))
     @foreach ($menu as $submenu)
+    {{-- Check Permissions --}}
+    @if(isset($submenu->permission) && auth()->user() && !auth()->user()->can($submenu->permission))
+      @continue
+    @endif
 
     {{-- active menu method --}}
     @php
