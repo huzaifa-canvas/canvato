@@ -147,8 +147,8 @@ class TemplateController extends Controller
             'title' => 'required|string|max:255',
             'category_id' => 'required|array|min:1',
             'price' => 'nullable|numeric|min:0',
-            'thumbnails.*' => 'nullable|image|max:2048',
-            'secure_file' => 'nullable|file|max:100000',
+            'thumbnails.*' => 'nullable|image|max:20480',
+            'secure_file' => 'nullable|file|max:307200',
         ]);
 
         // Handle thumbnails
