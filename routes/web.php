@@ -116,6 +116,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::middleware('permission:create products')->group(function () {
         Route::get('templates/create', [\App\Http\Controllers\Apps\TemplateController::class, 'create'])->name('templates.create');
         Route::post('templates', [\App\Http\Controllers\Apps\TemplateController::class, 'store'])->name('templates.store');
+        Route::post('templates/{template}/duplicate', [\App\Http\Controllers\Apps\TemplateController::class, 'duplicate'])->name('templates.duplicate');
     });
     Route::middleware('permission:edit products')->group(function () {
         Route::get('templates/{template}/edit', [\App\Http\Controllers\Apps\TemplateController::class, 'edit'])->name('templates.edit');

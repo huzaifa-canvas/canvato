@@ -247,4 +247,42 @@ class TemplateController extends Controller
         $template->delete();
         return redirect()->route('templates.index')->with('success', 'Template deleted successfully.');
     }
+
+    public function duplicate(Template $template)
+    {
+        $newTemplate = $template->replicate();
+        $newTemplate->title = $template->title . ' (Duplicate)';
+        $newTemplate->slug = Str::slug($newTemplate->title) . '-' . time();
+        $newTemplate->author_id = auth()->id();
+        $newTemplate->is_active = 0; // Set as draft
+
+        // Copy Thumbnails
+        $newThumbs = [];
+        if (is_array($template->thumbnail)) {
+            foreach ($template->thumbnail as $thumb) {
+                if (Storage::disk('public')->exists($thumb)) {
+                    $newPath = 'templates/thumbnails/' . Str::random(40) . '.' . pathinfo($thumb, PATHINFO_EXTENSION);
+                    Storage::disk('public')->copy($thumb, $newPath);
+                    $newThumbs[] = $newPath;
+                }
+            }
+        }
+        $newTemplate->thumbnail = $newThumbs;
+
+        // Copy Secure File
+        if ($template->secure_file_path && Storage::disk('local')->exists($template->secure_file_path)) {
+            $newSecurePath = 'templates/secure_files/' . Str::random(40) . '.' . pathinfo($template->secure_file_path, PATHINFO_EXTENSION);
+            Storage::disk('local')->copy($template->secure_file_path, $newSecurePath);
+            $newTemplate->secure_file_path = $newSecurePath;
+        }
+
+        $newTemplate->save();
+
+        // Copy relations
+        $newTemplate->categories()->sync($template->categories->pluck('id'));
+        $newTemplate->syncTags($template->tags);
+
+        return redirect()->route('templates.edit', $newTemplate->id)
+                         ->with('success', 'Template duplicated successfully.');
+    }
 }

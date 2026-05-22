@@ -131,6 +131,14 @@
                 <i class="icon-base ti tabler-edit icon-md"></i>
               </a>
               @endcan
+              @can('create products')
+              <form action="{{ route('templates.duplicate', $template->id) }}" method="POST" class="d-inline">
+                @csrf
+                <button type="submit" class="btn btn-icon btn-text-secondary btn-sm" title="Duplicate">
+                  <i class="icon-base ti tabler-copy icon-md"></i>
+                </button>
+              </form>
+              @endcan
               @can('delete products')
               <form action="{{ route('templates.destroy', $template->id) }}" method="POST" onsubmit="return confirm('Are you sure?');" class="d-inline">
                 @csrf
