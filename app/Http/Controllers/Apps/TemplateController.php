@@ -35,8 +35,22 @@ class TemplateController extends Controller
             $currentType = $request->type;
             $query->where('type', $currentType);
         }
+
+        if ($request->filled('search')) {
+            $query->where('title', 'like', '%' . $request->search . '%');
+        }
+
+        if ($request->filled('date_range')) {
+            $dates = explode(' to ', $request->date_range);
+            if (count($dates) == 2) {
+                $query->whereDate('created_at', '>=', $dates[0])
+                      ->whereDate('created_at', '<=', $dates[1]);
+            } elseif (count($dates) == 1) {
+                $query->whereDate('created_at', $dates[0]);
+            }
+        }
         
-        $templates = $query->latest()->get();
+        $templates = $query->latest()->paginate(10)->withQueryString();
         return view('content.apps.templates.index', compact('templates', 'currentType'));
     }
 
@@ -52,8 +66,8 @@ class TemplateController extends Controller
             'title' => 'required|string|max:255',
             'category_id' => 'required|array|min:1',
             'price' => 'nullable|numeric|min:0',
-            'thumbnails.*' => 'nullable|image|max:2048',
-            'secure_file' => 'nullable|file|max:100000',
+            'thumbnails.*' => 'nullable|image|max:20480',
+            'secure_file' => 'nullable|file|max:307200',
             'preview_url' => 'nullable|url',
         ]);
 

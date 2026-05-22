@@ -2,6 +2,32 @@
 
 @section('title', ($currentType ?? 'All') . ' Templates')
 
+@section('vendor-style')
+@vite([
+  'resources/assets/vendor/libs/flatpickr/flatpickr.scss'
+])
+@endsection
+
+@section('vendor-script')
+@vite([
+  'resources/assets/vendor/libs/flatpickr/flatpickr.js'
+])
+@endsection
+
+@section('page-script')
+<script type="module">
+  document.addEventListener('DOMContentLoaded', function () {
+    const flatpickrRange = document.querySelector('#flatpickr-range');
+    if (flatpickrRange) {
+      window.flatpickr(flatpickrRange, {
+        mode: 'range',
+        dateFormat: 'Y-m-d'
+      });
+    }
+  });
+</script>
+@endsection
+
 @section('content')
 <h4 class="py-3 mb-4">
   <span class="text-muted fw-light">Design Templates /</span> {{ $currentType ?? 'All Templates' }}
@@ -15,13 +41,27 @@
 @endif
 
 <div class="card">
-  <div class="card-header d-flex justify-content-between align-items-center">
-    <h5 class="mb-0">{{ $currentType ?? 'All Templates' }} <span class="badge bg-label-primary ms-2">{{ $templates->count() }}</span></h5>
-    @can('create products')
-    <a href="{{ route('templates.create', $currentType ? ['type' => $currentType] : []) }}" class="btn btn-primary">
-      <i class="icon-base ti tabler-plus me-1"></i> Add {{ $currentType ?? 'Template' }}
-    </a>
-    @endcan
+  <div class="card-header border-bottom">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+      <h5 class="mb-0">{{ $currentType ?? 'All Templates' }} <span class="badge bg-label-primary ms-2">{{ $templates->total() }}</span></h5>
+      
+      <div class="d-flex flex-column flex-sm-row align-items-sm-center gap-3">
+        <form method="GET" action="{{ url()->current() }}" class="d-flex align-items-center gap-2 m-0">
+          @if(request('type'))
+            <input type="hidden" name="type" value="{{ request('type') }}">
+          @endif
+          <input type="text" name="search" class="form-control form-control-sm" style="min-width: 180px;" placeholder="Search Title..." value="{{ request('search') }}">
+          <input type="text" name="date_range" id="flatpickr-range" class="form-control form-control-sm" style="min-width: 200px;" placeholder="Date Range" value="{{ request('date_range') }}">
+          <button type="submit" class="btn btn-primary btn-sm text-nowrap">Filter</button>
+        </form>
+
+        @can('create products')
+        <a href="{{ route('templates.create', $currentType ? ['type' => $currentType] : []) }}" class="btn btn-primary btn-sm text-nowrap">
+          <i class="icon-base ti tabler-plus me-1"></i> Add {{ $currentType ?? 'Template' }}
+        </a>
+        @endcan
+      </div>
+    </div>
   </div>
   <div class="table-responsive text-nowrap">
     <table class="table">
@@ -114,5 +154,10 @@
       </tbody>
     </table>
   </div>
+  @if($templates->hasPages())
+  <div class="card-footer d-flex justify-content-end border-top">
+    {{ $templates->links() }}
+  </div>
+  @endif
 </div>
 @endsection
