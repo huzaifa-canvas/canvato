@@ -285,4 +285,139 @@ class TemplateController extends Controller
         return redirect()->route('templates.edit', $newTemplate->id)
                          ->with('success', 'Template duplicated successfully.');
     }
+
+    public function downloadSample()
+    {
+        $filePath = public_path('samples/templates_sample.csv');
+        return response()->download($filePath, 'templates_sample.csv');
+    }
+
+    public function bulkUpload(Request $request)
+    {
+        $request->validate([
+            'csv_file' => 'required|file|mimes:csv,txt|max:5120',
+        ]);
+
+        $file = $request->file('csv_file');
+        $type = $request->input('bulk_type'); // The type from the current page
+
+        $handle = fopen($file->getRealPath(), 'r');
+        if (!$handle) {
+            return back()->with('error', 'Could not read the CSV file.');
+        }
+
+        // Read header row
+        $header = fgetcsv($handle);
+        if (!$header) {
+            fclose($handle);
+            return back()->with('error', 'CSV file is empty or has no header row.');
+        }
+
+        // Normalize header names (trim, lowercase)
+        $header = array_map(function ($col) {
+            return strtolower(trim($col));
+        }, $header);
+
+        $requiredColumns = ['title'];
+        foreach ($requiredColumns as $col) {
+            if (!in_array($col, $header)) {
+                fclose($handle);
+                return back()->with('error', "CSV is missing required column: '{$col}'.");
+            }
+        }
+
+        $imported = 0;
+        $skipped = 0;
+        $skippedTitles = [];
+        $rowNumber = 1;
+
+        while (($row = fgetcsv($handle)) !== false) {
+            $rowNumber++;
+
+            // Skip empty rows
+            if (count($row) === 0 || (count($row) === 1 && empty($row[0]))) {
+                continue;
+            }
+
+            // Map row to header
+            $data = [];
+            foreach ($header as $i => $colName) {
+                $data[$colName] = isset($row[$i]) ? trim($row[$i]) : '';
+            }
+
+            // Skip if title is empty
+            if (empty($data['title'])) {
+                continue;
+            }
+
+            // Check duplicate by title
+            if (Template::where('title', $data['title'])->exists()) {
+                $skipped++;
+                $skippedTitles[] = $data['title'];
+                continue;
+            }
+
+            // Parse comma-separated fields
+            $categoriesNames = !empty($data['categories']) ? array_map('trim', explode(',', $data['categories'])) : [];
+            $tags = !empty($data['tags']) ? array_map('trim', explode(',', $data['tags'])) : [];
+            $compatibleTools = !empty($data['compatible_tools']) ? array_map('trim', explode(',', $data['compatible_tools'])) : [];
+            $properties = !empty($data['properties']) ? array_map('trim', explode(',', $data['properties'])) : [];
+
+            $price = isset($data['price']) && is_numeric($data['price']) ? (float) $data['price'] : 0;
+
+            // Create template
+            $template = Template::create([
+                'title'            => $data['title'],
+                'slug'             => Str::slug($data['title']) . '-' . uniqid(),
+                'type'             => $type,
+                'description'      => $data['description'] ?? '',
+                'short_description' => $data['short_description'] ?? '',
+                'price'            => $price,
+                'preview_url'      => !empty($data['preview_url']) ? $data['preview_url'] : null,
+                'color_space'      => $data['color_space'] ?? null,
+                'orientation'      => $data['orientation'] ?? null,
+                'compatible_tools' => $compatibleTools,
+                'properties'       => $properties,
+                'thumbnail'        => [],
+                'meta_data'        => [],
+                'is_active'        => true,
+                'author_id'        => auth()->id(),
+            ]);
+
+            // Sync categories (find or create)
+            if (!empty($categoriesNames)) {
+                $categoryIds = [];
+                foreach ($categoriesNames as $catName) {
+                    $category = Category::firstOrCreate(
+                        ['slug' => Str::slug($catName)],
+                        ['name' => $catName, 'slug' => Str::slug($catName)]
+                    );
+                    $categoryIds[] = $category->id;
+                }
+                $template->category_id = $categoryIds[0] ?? null;
+                $template->save();
+                $template->categories()->sync($categoryIds);
+            }
+
+            // Attach tags
+            if (!empty($tags)) {
+                $template->attachTags($tags);
+            }
+
+            $imported++;
+        }
+
+        fclose($handle);
+
+        $message = "{$imported} templates imported successfully.";
+        if ($skipped > 0) {
+            $message .= " {$skipped} skipped (duplicate titles: " . implode(', ', array_slice($skippedTitles, 0, 5));
+            if ($skipped > 5) {
+                $message .= '... and ' . ($skipped - 5) . ' more';
+            }
+            $message .= ').';
+        }
+
+        return back()->with('success', $message);
+    }
 }

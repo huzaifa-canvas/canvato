@@ -40,6 +40,24 @@
 </div>
 @endif
 
+@if(session('error'))
+<div class="alert alert-danger alert-dismissible mb-4">
+  {{ session('error') }}
+  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+@endif
+
+@if($errors->any())
+<div class="alert alert-danger alert-dismissible mb-4">
+  <ul class="mb-0">
+    @foreach($errors->all() as $error)
+      <li>{{ $error }}</li>
+    @endforeach
+  </ul>
+  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+@endif
+
 <div class="card">
   <div class="card-header border-bottom">
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
@@ -56,6 +74,9 @@
         </form>
 
         @can('create products')
+        <button type="button" class="btn btn-label-secondary btn-sm text-nowrap" data-bs-toggle="modal" data-bs-target="#bulkUploadModal">
+          <i class="icon-base ti tabler-upload me-1"></i> Bulk Upload
+        </button>
         <a href="{{ route('templates.create', $currentType ? ['type' => $currentType] : []) }}" class="btn btn-primary btn-sm text-nowrap">
           <i class="icon-base ti tabler-plus me-1"></i> Add {{ $currentType ?? 'Template' }}
         </a>
@@ -168,4 +189,55 @@
   </div>
   @endif
 </div>
+
+{{-- Bulk Upload Modal --}}
+@can('create products')
+<div class="modal fade" id="bulkUploadModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Bulk Upload Templates</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="{{ route('templates.bulk-upload') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <input type="hidden" name="bulk_type" value="{{ $currentType }}">
+        <div class="modal-body">
+          <div class="alert alert-info d-flex align-items-start gap-2 mb-4">
+            <i class="icon-base ti tabler-info-circle mt-1"></i>
+            <div>
+              <strong>Instructions:</strong>
+              <ul class="mb-0 mt-1 ps-3" style="font-size: 13px;">
+                <li>Upload a <strong>.csv</strong> file with template data.</li>
+                <li>First row must be column headers.</li>
+                <li>Only <strong>title</strong> column is required.</li>
+                <li>Duplicate titles will be <strong>skipped</strong> automatically.</li>
+                @if($currentType)
+                <li>All records will be set to type: <strong>{{ $currentType }}</strong>.</li>
+                @else
+                <li>Type will not be set (upload from a specific type page to auto-assign).</li>
+                @endif
+                <li>Download the sample file to see the expected format.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="csv_file">Select CSV File</label>
+            <input type="file" class="form-control" id="csv_file" name="csv_file" accept=".csv" required>
+          </div>
+          <a href="{{ route('templates.download-sample') }}" class="btn btn-outline-primary btn-sm">
+            <i class="icon-base ti tabler-download me-1"></i> Download Sample CSV
+          </a>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">
+            <i class="icon-base ti tabler-upload me-1"></i> Upload & Import
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+@endcan
 @endsection

@@ -101,6 +101,13 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     });
     
     // Type Routes for active menu states
+    Route::middleware('permission:create products')->group(function () {
+        Route::get('templates/create', [\App\Http\Controllers\Apps\TemplateController::class, 'create'])->name('templates.create');
+        Route::post('templates', [\App\Http\Controllers\Apps\TemplateController::class, 'store'])->name('templates.store');
+        Route::post('templates/{template}/duplicate', [\App\Http\Controllers\Apps\TemplateController::class, 'duplicate'])->name('templates.duplicate');
+        Route::post('templates/bulk-upload', [\App\Http\Controllers\Apps\TemplateController::class, 'bulkUpload'])->name('templates.bulk-upload');
+        Route::get('templates/download-sample', [\App\Http\Controllers\Apps\TemplateController::class, 'downloadSample'])->name('templates.download-sample');
+    });
     Route::middleware('permission:view products')->group(function () {
         Route::get('templates/printable-templates', [\App\Http\Controllers\Apps\TemplateController::class, 'index'])->name('templates.type.printable');
         Route::get('templates/product-mockups', [\App\Http\Controllers\Apps\TemplateController::class, 'index'])->name('templates.type.mockups');
@@ -112,11 +119,6 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         Route::get('templates/scene-generators', [\App\Http\Controllers\Apps\TemplateController::class, 'index'])->name('templates.type.scene');
         Route::get('templates', [\App\Http\Controllers\Apps\TemplateController::class, 'index'])->name('templates.index');
         Route::get('templates/{template}', [\App\Http\Controllers\Apps\TemplateController::class, 'show'])->name('templates.show');
-    });
-    Route::middleware('permission:create products')->group(function () {
-        Route::get('templates/create', [\App\Http\Controllers\Apps\TemplateController::class, 'create'])->name('templates.create');
-        Route::post('templates', [\App\Http\Controllers\Apps\TemplateController::class, 'store'])->name('templates.store');
-        Route::post('templates/{template}/duplicate', [\App\Http\Controllers\Apps\TemplateController::class, 'duplicate'])->name('templates.duplicate');
     });
     Route::middleware('permission:edit products')->group(function () {
         Route::get('templates/{template}/edit', [\App\Http\Controllers\Apps\TemplateController::class, 'edit'])->name('templates.edit');
