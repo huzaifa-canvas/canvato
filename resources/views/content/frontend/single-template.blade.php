@@ -385,12 +385,13 @@
           <div class="product-gallery">
             <div class="main-image">
               @if ($template->main_thumbnail)
-                <a href="{{ asset('storage/' . $template->main_thumbnail) }}" target="_blank" style="display:block; width:100%; height:100%; cursor:pointer;">
-                  <img src="{{ asset('storage/' . $template->main_thumbnail) }}" alt="{{ $template->title }}">
+                <a id="main-image-link" href="{{ asset('storage/' . $template->main_thumbnail) }}" target="_blank" style="display:block; width:100%; height:100%; cursor:pointer;">
+                  <img id="main-image-display" src="{{ asset('storage/' . $template->main_thumbnail) }}" alt="{{ $template->title }}">
                 </a>
               @else
-                <a href="https://images.unsplash.com/photo-1541462608143-67571c6738dd?auto=format&fit=crop&w=1200&h=800&q=80" target="_blank" style="display:block; width:100%; height:100%; cursor:pointer;">
+                <a id="main-image-link" href="https://images.unsplash.com/photo-1541462608143-67571c6738dd?auto=format&fit=crop&w=1200&h=800&q=80" target="_blank" style="display:block; width:100%; height:100%; cursor:pointer;">
                   <img
+                    id="main-image-display"
                     src="https://images.unsplash.com/photo-1541462608143-67571c6738dd?auto=format&fit=crop&w=1200&h=800&q=80"
                     alt="Main Product Preview">
                 </a>
@@ -400,24 +401,16 @@
               @if (is_array($template->thumbnail) && count($template->thumbnail) > 0)
                 @foreach ($template->thumbnail as $index => $thumb)
                   <div class="thumbnail {{ $index === 0 ? 'active' : '' }}">
-                    <a href="{{ asset('storage/' . $thumb) }}" target="_blank" style="display:block; width:100%; height:100%; cursor:pointer;">
-                      <img src="{{ asset('storage/' . $thumb) }}" alt="Thumb {{ $index + 1 }}">
-                    </a>
+                    <img src="{{ asset('storage/' . $thumb) }}" alt="Thumb {{ $index + 1 }}">
                   </div>
                 @endforeach
               @elseif($template->main_thumbnail)
                 <div class="thumbnail active">
-                  <a href="{{ asset('storage/' . $template->main_thumbnail) }}" target="_blank" style="display:block; width:100%; height:100%; cursor:pointer;">
-                    <img src="{{ asset('storage/' . $template->main_thumbnail) }}" alt="Thumb 1">
-                  </a>
+                  <img src="{{ asset('storage/' . $template->main_thumbnail) }}" alt="Thumb 1">
                 </div>
               @else
                 <div class="thumbnail active">
-                  <a href="https://images.unsplash.com/photo-1541462608143-67571c6738dd?auto=format&fit=crop&w=400&h=300&q=80" target="_blank" style="display:block; width:100%; height:100%; cursor:pointer;">
-                    <img
-                      src="https://images.unsplash.com/photo-1541462608143-67571c6738dd?auto=format&fit=crop&w=400&h=300&q=80"
-                      alt="Thumb 1">
-                  </a>
+                  <img src="https://images.unsplash.com/photo-1541462608143-67571c6738dd?auto=format&fit=crop&w=400&h=300&q=80" alt="Thumb 1">
                 </div>
               @endif
             </div>
@@ -560,6 +553,28 @@
       button.addEventListener('click', () => {
         const item = button.closest('.accordion-item');
         item.classList.toggle('active');
+      });
+    });
+
+    // Gallery Image Swapping
+    const mainImageDisplay = document.getElementById('main-image-display');
+    const mainImageLink = document.getElementById('main-image-link');
+    const thumbnails = document.querySelectorAll('.thumbnail-strip .thumbnail img');
+    const thumbnailWrappers = document.querySelectorAll('.thumbnail-strip .thumbnail');
+
+    thumbnails.forEach((thumb, index) => {
+      // Add cursor pointer to thumbnails so user knows they are clickable
+      thumb.style.cursor = 'pointer';
+      
+      thumb.addEventListener('click', () => {
+        // Update Main Image source and link
+        const newSrc = thumb.getAttribute('src');
+        mainImageDisplay.setAttribute('src', newSrc);
+        mainImageLink.setAttribute('href', newSrc);
+
+        // Update active class on thumbnails
+        thumbnailWrappers.forEach(wrapper => wrapper.classList.remove('active'));
+        thumbnailWrappers[index].classList.add('active');
       });
     });
   </script>

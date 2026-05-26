@@ -307,6 +307,29 @@
       font-weight: 600;
     }
 
+    .filter-scrollable {
+      max-height: 220px;
+      overflow-y: auto;
+      padding-right: 8px;
+    }
+    
+    .filter-scrollable::-webkit-scrollbar {
+      width: 4px;
+    }
+    
+    .filter-scrollable::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    
+    .filter-scrollable::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+    }
+    
+    .filter-scrollable::-webkit-scrollbar-thumb:hover {
+      background: rgba(194, 46, 245, 0.5);
+    }
+
     .filter-divider {
       height: 1px;
       background: var(--border);
@@ -548,26 +571,89 @@
       display: flex;
       justify-content: center;
       padding: 40px 0 0;
+      width: 100%;
+    }
+
+    .tpl-pagination nav {
+      width: 100%;
+    }
+
+    /* Hide the mobile-only (Previous / Next) pagination block */
+    .tpl-pagination nav > div:first-of-type {
+      display: none !important;
+    }
+
+    /* Style the desktop pagination block */
+    .tpl-pagination nav > div:last-of-type {
+      display: flex !important;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+    
+    .tpl-pagination p.small {
+      margin: 0;
+      color: var(--text-3);
+      font-size: 14px;
+      text-align: center;
     }
 
     .tpl-pagination .pagination {
-      gap: 4px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
     }
 
-    .tpl-pagination .page-link {
+    .tpl-pagination .page-item {
+      margin: 0;
+    }
+
+    .tpl-pagination .page-link,
+    .tpl-pagination .page-item span.page-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 38px;
+      height: 38px;
       background: var(--bg-card);
       border: 1px solid var(--border);
       color: var(--text-2);
       border-radius: 8px;
-      padding: 8px 14px;
+      padding: 0 12px;
       font-size: 13px;
+      text-decoration: none;
+      transition: all 0.2s;
     }
 
-    .tpl-pagination .page-link:hover,
-    .tpl-pagination .page-item.active .page-link {
+    .tpl-pagination .page-link:hover {
+      background: rgba(194, 46, 245, 0.1);
+      border-color: var(--accent);
+      color: var(--text-1);
+    }
+
+    .tpl-pagination .page-item.active .page-link,
+    .tpl-pagination .page-item.active span.page-link {
       background: var(--accent);
       border-color: var(--accent);
       color: #fff;
+    }
+    
+    .tpl-pagination .page-item.disabled .page-link,
+    .tpl-pagination .page-item.disabled span.page-link {
+      opacity: 0.5;
+      pointer-events: none;
+      cursor: not-allowed;
+    }
+    
+    .tpl-pagination svg {
+      width: 16px;
+      height: 16px;
     }
 
     /* ── AJAX Loading Overlay ── */
@@ -760,13 +846,15 @@
                     class="filter-clear">&times; Clear</a>
                 @endif
               </div>
-              @foreach ($categories as $cat)
-                <div class="filter-check">
-                  <input type="checkbox" name="category[]" value="{{ $cat->slug }}" id="cat_{{ $cat->slug }}"
-                    {{ in_array($cat->slug, (array) request('category')) ? 'checked' : '' }}>
-                  <label for="cat_{{ $cat->slug }}">{{ $cat->name }}</label>
-                </div>
-              @endforeach
+              <div class="filter-scrollable">
+                @foreach ($categories as $cat)
+                  <div class="filter-check">
+                    <input type="checkbox" name="category[]" value="{{ $cat->slug }}" id="cat_{{ $cat->slug }}"
+                      {{ in_array($cat->slug, (array) request('category')) ? 'checked' : '' }}>
+                    <label for="cat_{{ $cat->slug }}">{{ $cat->name }}</label>
+                  </div>
+                @endforeach
+              </div>
             </div>
 
             <div class="filter-divider"></div>
