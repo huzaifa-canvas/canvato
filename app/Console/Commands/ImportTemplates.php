@@ -55,11 +55,15 @@ class ImportTemplates extends Command
         }
 
         $header = array_map(function ($col) {
-            return strtolower(trim($col));
+            // Remove UTF-8 BOM if present
+            $col = preg_replace('/^[\xef\xbb\xbf]+/', '', $col);
+            // Also strip any surrounding quotes or whitespace
+            $col = trim($col, " \t\n\r\0\x0B\"");
+            return strtolower($col);
         }, $header);
 
         if (!in_array('title', $header)) {
-            $this->error("CSV must contain at least a 'title' column.");
+            $this->error("CSV must contain at least a 'title' column. Found headers: " . implode(', ', $header));
             fclose($handle);
             return 1;
         }

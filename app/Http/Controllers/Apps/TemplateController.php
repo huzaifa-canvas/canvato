@@ -315,7 +315,11 @@ class TemplateController extends Controller
 
         // Normalize header names (trim, lowercase)
         $header = array_map(function ($col) {
-            return strtolower(trim($col));
+            // Remove UTF-8 BOM if present
+            $col = preg_replace('/^[\xef\xbb\xbf]+/', '', $col);
+            // Also strip any surrounding quotes or whitespace
+            $col = trim($col, " \t\n\r\0\x0B\"");
+            return strtolower($col);
         }, $header);
 
         $requiredColumns = ['title'];
