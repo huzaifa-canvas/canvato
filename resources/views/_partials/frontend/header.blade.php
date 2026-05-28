@@ -5,7 +5,7 @@
             CANVATO.
         </div>
         
-        <nav class="header-nav">
+        <nav class="header-nav" id="headerNav">
             <a href="{{ route('frontend.home') }}" class="{{ request()->routeIs('frontend.home') ? 'text-accent' : '' }}">Home</a>
             
             {{-- Design Templates Mega Menu --}}
@@ -54,11 +54,19 @@
         </nav>
 
         <div class="header-actions">
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
             <div class="search-bar">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                 <input type="text" placeholder="Search assets...">
                 <div class="search-shortcut">⌘K</div>
             </div>
+
             
             <!-- User Dropdown -->
             <div class="user-dropdown-container">
@@ -169,6 +177,134 @@
     background: rgba(255, 255, 255, 0.05);
     margin: 8px 0;
 }
+
+/* Mobile Menu Styles */
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    padding: 8px;
+    margin-left: 12px;
+}
+
+@media (max-width: 992px) {
+    .mobile-menu-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .header-nav {
+        display: flex !important;
+        position: fixed;
+        top: 64px; /* Header height */
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 64px);
+        background: #0a0a0a;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 24px 24px 120px 24px; /* Extra bottom padding for scrolling */
+        transition: left 0.3s ease;
+        z-index: 999;
+        overflow-y: auto;
+    }
+    
+    .header-nav.active {
+        left: 0 !important;
+    }
+    
+    .header-nav > a, .header-nav .mega-menu-trigger > a {
+        font-size: 1.1rem;
+        padding: 12px 0;
+        width: 100%;
+        display: block;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .header-nav .mega-menu-trigger {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .mega-menu {
+        position: static;
+        width: 100%;
+        max-height: none !important; /* Disable nested scrolling on mobile */
+        overflow-y: visible !important;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        display: none;
+        flex-direction: column;
+        gap: 10px;
+        box-shadow: none;
+        padding: 10px 15px;
+        background: rgba(255, 255, 255, 0.03);
+        border: none;
+        border-radius: 8px;
+        margin-top: 10px;
+    }
+    
+    .mega-menu .mega-col h4 {
+        margin-top: 10px;
+        margin-bottom: 5px;
+        font-size: 0.95rem;
+        color: #fff;
+    }
+    
+    .mega-menu .mega-col a {
+        padding: 6px 0;
+        font-size: 0.9rem;
+        display: block;
+        border: none;
+        color: var(--text-secondary);
+    }
+    
+    .mega-menu-trigger.mobile-expanded .mega-menu {
+        display: flex;
+    }
+    
+    .header-actions {
+        margin-left: auto;
+    }
+    
+    .search-bar {
+        display: none !important; /* Hide on mobile to save space */
+    }
+}
 </style>
+
+<script>
+(function() {
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const headerNav = document.getElementById('headerNav');
+    const megaMenuTrigger = document.querySelector('.mega-menu-trigger');
+
+    if (mobileMenuBtn && headerNav) {
+        mobileMenuBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            headerNav.classList.toggle('active');
+        });
+    }
+    
+    if (megaMenuTrigger) {
+        megaMenuTrigger.addEventListener('click', function(e) {
+            if (window.innerWidth <= 992) {
+                // Check if they clicked the main "Design Templates" link
+                const mainLink = e.target.closest('.mega-menu-trigger > a');
+                
+                if (mainLink) {
+                    e.preventDefault(); // Prevent redirection on mobile
+                    megaMenuTrigger.classList.toggle('mobile-expanded');
+                }
+            }
+        });
+    }
+})();
+</script>
     </div>
 </header>

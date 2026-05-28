@@ -110,7 +110,8 @@
       object-position: top;
     }
 
-    .main-image:hover img {
+    .main-image:hover img,
+    .main-image.mobile-hovered img {
       object-position: bottom center;
     }
 
@@ -385,11 +386,11 @@
           <div class="product-gallery">
             <div class="main-image">
               @if ($template->main_thumbnail)
-                <a id="main-image-link" href="{{ asset('storage/' . $template->main_thumbnail) }}" target="_blank" style="display:block; width:100%; height:100%; cursor:pointer;">
+                <a id="main-image-link" href="{{ asset('storage/' . $template->main_thumbnail) }}" target="_blank" onclick="if(window.innerWidth <= 992 && !this.closest('.main-image').classList.contains('mobile-hovered')) { this.closest('.main-image').classList.add('mobile-hovered'); return false; }" style="display:block; width:100%; height:100%; cursor:pointer;">
                   <img id="main-image-display" src="{{ asset('storage/' . $template->main_thumbnail) }}" alt="{{ $template->title }}">
                 </a>
               @else
-                <a id="main-image-link" href="https://images.unsplash.com/photo-1541462608143-67571c6738dd?auto=format&fit=crop&w=1200&h=800&q=80" target="_blank" style="display:block; width:100%; height:100%; cursor:pointer;">
+                <a id="main-image-link" href="https://images.unsplash.com/photo-1541462608143-67571c6738dd?auto=format&fit=crop&w=1200&h=800&q=80" target="_blank" onclick="if(window.innerWidth <= 992 && !this.closest('.main-image').classList.contains('mobile-hovered')) { this.closest('.main-image').classList.add('mobile-hovered'); return false; }" style="display:block; width:100%; height:100%; cursor:pointer;">
                   <img
                     id="main-image-display"
                     src="https://images.unsplash.com/photo-1541462608143-67571c6738dd?auto=format&fit=crop&w=1200&h=800&q=80"
@@ -577,5 +578,6 @@
         thumbnailWrappers[index].classList.add('active');
       });
     });
+
   </script>
 @endsection

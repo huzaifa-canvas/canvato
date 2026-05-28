@@ -461,7 +461,8 @@
       object-position: top;
     }
 
-    .tpl-card-img:hover img {
+    .tpl-card-img:hover img,
+    .tpl-card.mobile-hovered .tpl-card-img img {
       object-position: bottom center;
     }
 
@@ -1289,7 +1290,18 @@
       });
 
       // ─── 9. TEMPLATE CARD LINKS (navigate normally to single page) ───
-      // .tpl-card-link and .tpl-card-preview navigate normally — no preventDefault
+      // On mobile, require a double tap: first tap applies hover animation, second tap navigates
+      $(document).on('click', '.tpl-card-link', function(e) {
+        if (window.innerWidth <= 992) {
+          var $card = $(this).closest('.tpl-card');
+          if (!$card.hasClass('mobile-hovered')) {
+            e.preventDefault(); // Prevent navigation
+            $('.tpl-card').removeClass('mobile-hovered'); // Remove active state from other cards
+            $card.addClass('mobile-hovered'); // Add hover state to this card
+          }
+          // If it already has the class, do not prevent default (so it navigates)
+        }
+      });
 
       // ─── 10. BROWSER BACK/FORWARD ───
       $(window).on('popstate', function() {
