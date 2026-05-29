@@ -127,7 +127,7 @@
                   @endif
                 </td>
               @endif
-              <td>
+              <td style="white-space: normal; max-width: 220px; word-wrap: break-word;">
                 @if ($template->categories->count())
                   @foreach ($template->categories as $cat)
                     <span class="badge bg-label-secondary me-1">{{ $cat->name }}</span>
