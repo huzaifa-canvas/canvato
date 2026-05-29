@@ -240,6 +240,8 @@ img { max-width: 100%; display: block; }
     color: var(--text-secondary);
     font-weight: 500;
     transition: color 0.2s;
+    padding: 10px 0px;
+
 }
 
 .header-nav a:hover {
