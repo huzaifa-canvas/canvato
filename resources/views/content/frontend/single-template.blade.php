@@ -512,15 +512,13 @@
               @endif
 
               @if ($template->tags->count() > 0)
-                <div class="accordion-item">
-                  <button class="accordion-header">Tags</button>
-                  <div class="accordion-content">
-                    <ul class="tags-list">
-                      @foreach ($template->tags as $tag)
-                        <li>{{ $tag->name }}</li>
-                      @endforeach
-                    </ul>
-                  </div>
+                <div class="tags-section" style="margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border-light);">
+                  <h4 style="font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-primary); margin-bottom: 16px;">Tags</h4>
+                  <ul class="tags-list">
+                    @foreach ($template->tags as $tag)
+                      <li>{{ $tag->name }}</li>
+                    @endforeach
+                  </ul>
                 </div>
               @endif
             </div>
@@ -550,11 +548,15 @@
 
 @section('page-script')
   <script>
-    document.querySelectorAll('.accordion-header').forEach(button => {
-      button.addEventListener('click', () => {
-        const item = button.closest('.accordion-item');
-        item.classList.toggle('active');
-      });
+    // Accordion Toggle using Event Delegation for reliability
+    document.addEventListener('click', function(e) {
+      const header = e.target.closest('.accordion-header');
+      if (header) {
+        const item = header.closest('.accordion-item');
+        if (item) {
+          item.classList.toggle('active');
+        }
+      }
     });
 
     // Gallery Image Swapping
