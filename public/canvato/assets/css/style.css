@@ -257,7 +257,7 @@ img { max-width: 100%; display: block; }
 
 .mega-menu {
     position: absolute;
-    top: 100%;
+    top: 80%;
     left: 50%;
     transform: translateX(-50%) translateY(8px);
     width: 680px;
