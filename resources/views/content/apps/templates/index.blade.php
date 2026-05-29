@@ -130,7 +130,7 @@
               <td style="white-space: normal; max-width: 220px; word-wrap: break-word;">
                 @if ($template->categories->count())
                   @foreach ($template->categories as $cat)
-                    <span class="badge bg-label-secondary me-1">{{ $cat->name }}</span>
+                    <span class="badge bg-label-secondary me-1 mb-1">{{ $cat->name }}</span>
                   @endforeach
                 @else
                   <span class="text-muted">N/A</span>
