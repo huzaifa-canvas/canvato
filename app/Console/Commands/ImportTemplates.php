@@ -55,10 +55,12 @@ class ImportTemplates extends Command
         }
 
         $header = array_map(function ($col) {
-            // Remove UTF-8 BOM if present
-            $col = preg_replace('/^[\xef\xbb\xbf]+/', '', $col);
-            // Also strip any surrounding quotes or whitespace
-            $col = trim($col, " \t\n\r\0\x0B\"");
+            // Remove any BOM (UTF-8, UTF-16 LE/BE, UTF-32)
+            $col = preg_replace('/^\x{FEFF}/u', '', $col);
+            $col = preg_replace('/^[\xef\xbb\xbf\xff\xfe\xfe\xff]+/', '', $col);
+            // Strip surrounding quotes, whitespace, and non-printable chars
+            $col = preg_replace('/[^\x20-\x7E]/', '', $col);
+            $col = trim($col, " \t\n\r\0\x0B\"'");
             return strtolower($col);
         }, $header);
 
